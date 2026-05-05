@@ -1,0 +1,83 @@
+{
+  "name": "generative-media-starter",
+  "version": "0.1.0",
+  "description": "An open-source starter for launching a credit-based generative media app with BabySea SDK, Vercel, Stripe, Supabase, and Upstash.",
+  "private": true,
+  "license": "Apache-2.0",
+  "homepage": "https://demo.generative-media-starter.babysea.live",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/babysea-ai/generative-media-starter.git"
+  },
+  "keywords": [
+    "babysea",
+    "open-source",
+    "starter-pack",
+    "stripe",
+    "supabase",
+    "upstash",
+    "vercel",
+    "ai-infrastructure",
+    "control-plane",
+    "execution-layer",
+    "developer-tools",
+    "generative-ai",
+    "inference-providers",
+    "image-generation",
+    "video-generation",
+    "multimodal",
+    "generative-media",
+    "creative-tools"
+  ],
+  "engines": {
+    "node": ">=20.10.0"
+  },
+  "scripts": {
+    "build": "next build",
+    "clean": "git clean -xdf .next .turbo node_modules",
+    "dev": "next dev --port=3011",
+    "doctor": "node scripts/doctor.mjs",
+    "format": "prettier --check \"**/*.{ts,tsx,css,md,json,mjs}\"",
+    "format:fix": "prettier --write \"**/*.{ts,tsx,css,md,json,mjs}\"",
+    "start": "next start",
+    "supabase": "supabase",
+    "supabase:link": "supabase link --project-ref $SUPABASE_PROJECT_REF",
+    "supabase:push": "supabase db push",
+    "supabase:typegen": "supabase gen types typescript --project-id $SUPABASE_PROJECT_REF --schema public > ./lib/database.types.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.8.0",
+    "@supabase/supabase-js": "2.97.0",
+    "@upstash/ratelimit": "2.0.8",
+    "@upstash/redis": "1.36.2",
+    "babysea": "1.4.3",
+    "clsx": "^2.1.1",
+    "lucide-react": "0.575.0",
+    "next": "16.1.6",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "stripe": "20.4.0",
+    "tailwind-merge": "^3.5.0",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.1",
+    "@types/node": "25.3.1",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "babel-plugin-react-compiler": "1.0.0",
+    "prettier": "^3.8.1",
+    "supabase": "2.76.15",
+    "tailwindcss": "^4.2.1",
+    "typescript": "^5.9.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@tailwindcss/oxide",
+      "sharp",
+      "supabase"
+    ]
+  },
+  "packageManager": "pnpm@10.19.0"
+}
