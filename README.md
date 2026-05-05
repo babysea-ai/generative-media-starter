@@ -66,7 +66,7 @@ The default app is intentionally focused:
 - one execution surface: the official `babysea` TypeScript SDK
 - one pricing unit: dollar-denominated app credits
 - two dashboard sections: Generate and Billing
-- one production route: Vercel-hosted Next.js
+- one production route: Vercel-hosted or Netlify-hosted Next.js
 
 BabySea handles provider routing behind the SDK and model schema. The starter handles the product surface around that execution contract.
 
@@ -82,7 +82,7 @@ BabySea handles provider routing behind the SDK and model schema. The starter ha
 | Execution            | BabySea TypeScript SDK     | Load model schema, estimate cost, create generation, wait for completion, and return asset URLs.          |
 | Private storage      | Supabase Storage           | Copy completed media into a private `generated-media` bucket and serve signed URLs.                       |
 | Rate limiting        | Upstash Redis              | Enforce per-user generation limits in production.                                                         |
-| Deployment           | Vercel                     | Host the Next.js app and Stripe webhook route.                                                            |
+| Deployment           | Vercel or Netlify          | Host the Next.js app and Stripe webhook route.                                                            |
 
 No provider credentials, queues, cron jobs, or user-managed inference-provider keys are part of the starter contract.
 
@@ -237,7 +237,7 @@ After `.env.local` is filled and migrations are applied, run:
 pnpm run doctor
 ```
 
-The doctor verifies environment variables, BabySea schema/cost access, Stripe Prices, Supabase tables/storage, Upstash connectivity, and Vercel command configuration. It never prints secret values.
+The doctor verifies environment variables, BabySea schema/cost access, Stripe Prices, Supabase tables/storage, Upstash connectivity, and Vercel/Netlify deployment configuration. It never prints secret values.
 
 ### 7. Run locally
 
@@ -247,7 +247,9 @@ pnpm dev
 
 Open <http://localhost:3011>, sign up, buy a test credit pack with Stripe test cards, then generate media from the dashboard.
 
-### 8. Deploy on Vercel
+### 8. Deploy on Vercel or Netlify
+
+#### Vercel
 
 Create a Vercel project with these settings:
 
@@ -259,7 +261,19 @@ Create a Vercel project with these settings:
 | Build Command       | `pnpm build`                                        |
 | Development Command | `pnpm dev`                                          |
 
-Add every runtime variable from `.env.example` to Vercel. Do not add `SUPABASE_PROJECT_REF`; it is only used by local Supabase CLI scripts.
+#### Netlify
+
+Click the Netlify one-click deploy button or create a Netlify site from the GitHub repository. The checked-in `netlify.toml` configures the build:
+
+| Setting           | Value                                                             |
+| ----------------- | ----------------------------------------------------------------- |
+| Build Command     | `pnpm install --frozen-lockfile --ignore-workspace && pnpm build` |
+| Publish Directory | `.next`                                                           |
+| Node Version      | `20`                                                              |
+
+Netlify's official Next.js runtime handles App Router routes, Route Handlers, and the Supabase auth-refresh proxy through Netlify Functions. No edge-runtime conversion is required.
+
+Add every runtime variable from `.env.example` to Vercel or Netlify. Do not add `SUPABASE_PROJECT_REF`; it is only used by local Supabase CLI scripts.
 
 For production, set:
 
@@ -267,9 +281,9 @@ For production, set:
 NEXT_PUBLIC_SITE_URL=https://your-app.example.com
 ```
 
-If you attach a custom domain after the first deploy, update Vercel, Supabase Auth URLs, and the Stripe webhook endpoint, then redeploy.
+If you attach a custom domain after the first deploy, update Vercel or Netlify, Supabase Auth URLs, and the Stripe webhook endpoint, then redeploy.
 
-See [docs/deploy-vercel.md](docs/deploy-vercel.md) for the full deployment checklist.
+See [docs/deploy-vercel.md](docs/deploy-vercel.md) for the Vercel-specific deployment checklist. Netlify uses the `netlify.toml` settings above.
 
 ## Environment variables
 
@@ -303,6 +317,7 @@ See [docs/deploy-vercel.md](docs/deploy-vercel.md) for the full deployment check
 - [x] Signed asset URLs in generation history
 - [x] Upstash-backed production rate limiting
 - [x] Vercel deployment configuration
+- [x] Netlify deployment configuration
 - [x] Preflight doctor for service readiness
 
 ## Customization guide
@@ -315,7 +330,7 @@ See [docs/deploy-vercel.md](docs/deploy-vercel.md) for the full deployment check
 
 ## Production checklist
 
-- [ ] `.env.local` and Vercel environment variables contain real secrets.
+- [ ] `.env.local` and Vercel or Netlify environment variables contain real secrets.
 - [ ] No secret files are committed.
 - [ ] Supabase migrations are applied.
 - [ ] Supabase Auth Site URL matches your deployed domain.
@@ -333,7 +348,7 @@ See [docs/deploy-vercel.md](docs/deploy-vercel.md) for the full deployment check
 
 | Symptom                                     | Fix                                                                            |
 | ------------------------------------------- | ------------------------------------------------------------------------------ |
-| Stripe Checkout returns to the wrong host   | Update `NEXT_PUBLIC_SITE_URL` in Vercel and redeploy.                          |
+| Stripe Checkout returns to the wrong host   | Update `NEXT_PUBLIC_SITE_URL` in Vercel or Netlify and redeploy.               |
 | Supabase email links fail                   | Add `https://your-app.example.com/**` to Auth redirect URLs.                   |
 | Checkout succeeds but credits do not appear | Verify the Stripe webhook URL, event type, and `STRIPE_WEBHOOK_SECRET`.        |
 | Generation is disabled                      | Set a valid server-side `BABYSEA_API_KEY`.                                     |
@@ -343,8 +358,8 @@ See [docs/deploy-vercel.md](docs/deploy-vercel.md) for the full deployment check
 
 ## Security notes
 
-- Never commit `.env`, `.env.local`, `.env.production`, or Vercel export files.
-- Keep BabySea, Stripe, Supabase service-role, Upstash, Vercel, and GitHub tokens in deployment secrets only.
+- Never commit `.env`, `.env.local`, `.env.production`, Vercel export files, or Netlify secret exports.
+- Keep BabySea, Stripe, Supabase service-role, Upstash, Vercel, Netlify, and GitHub tokens in deployment secrets only.
 - Rotate any secret that was pasted into a terminal, chat, issue, or screenshot.
 - The Supabase service role is used only in trusted server actions and webhooks.
 - Browser code only receives publishable keys.

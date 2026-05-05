@@ -4,6 +4,16 @@ All notable changes to `generative-media-starter` will be documented here. The f
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- `netlify.toml` and a Netlify "Deploy" one-click button in the README, alongside the existing Vercel button. Netlify uses the official `@netlify/plugin-nextjs` runtime, which supports the Supabase auth-refresh proxy (Node.js Middleware) on Netlify Functions without any source changes.
+
+### Notes
+
+- Cloudflare Workers (`@opennextjs/cloudflare`) was evaluated and intentionally **not** added. The OpenNext Cloudflare adapter does not yet support Next.js Node.js Middleware, which the Supabase auth-refresh `proxy.ts` requires. A Cloudflare deploy target will be revisited once OpenNext supports Node.js Middleware or Supabase ships an edge-runtime SSR proxy helper.
+
 ## [0.1.0] - 2026-05-05
 
 Initial public release.

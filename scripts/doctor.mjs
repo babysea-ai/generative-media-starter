@@ -277,6 +277,34 @@ await runCheck('Vercel deployment config', () => {
   return 'Vercel build, install, and dev commands verified';
 });
 
+await runCheck('Netlify deployment config', () => {
+  const netlify = readRequiredFile('netlify.toml');
+
+  if (!netlify.includes('[build]')) {
+    throw new Error('netlify.toml must include a [build] section');
+  }
+
+  if (
+    !netlify.includes(
+      'command = "pnpm install --frozen-lockfile --ignore-workspace && pnpm build"',
+    )
+  ) {
+    throw new Error(
+      'netlify.toml build command must install with --ignore-workspace and run pnpm build',
+    );
+  }
+
+  if (!netlify.includes('publish = ".next"')) {
+    throw new Error('netlify.toml publish directory must be .next');
+  }
+
+  if (!netlify.includes('NODE_VERSION = "20"')) {
+    throw new Error('netlify.toml must pin NODE_VERSION = "20"');
+  }
+
+  return 'Netlify build command, publish directory, and Node version verified';
+});
+
 // @ts-ignore
 const failed = results.filter((result) => result.status === 'fail');
 // @ts-ignore
