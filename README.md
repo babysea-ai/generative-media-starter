@@ -3,7 +3,7 @@
 # 🐧 Generative Media Starter
 
 **Launch a credit-based generative media app.<br/>
-Built with Next.js, Supabase, Stripe, Upstash, and the BabySea SDK.**
+Built with Next.js, Stripe, Supabase, Upstash, and the BabySea SDK.**
 
 <br/>
 
@@ -11,7 +11,7 @@ Built with Next.js, Supabase, Stripe, Upstash, and the BabySea SDK.**
 [![BabySea OSS Starters](https://img.shields.io/badge/oss%20starters-BabySea-0284c7.svg)](#babysea-oss-taxonomy)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/status-reference%20starter-orange.svg)](#status)
-[![Deploy with Vercel](https://img.shields.io/badge/deploy-Vercel-black.svg?logo=vercel&logoColor=white)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbabysea-ai%2Fgenerative-media-starter&project-name=generative-media-starter&repository-name=generative-media-starter)
+
 <br/>
 
 **Infrastructure**
@@ -27,7 +27,11 @@ Built with Next.js, Supabase, Stripe, Upstash, and the BabySea SDK.**
 
 _A deployable reference app for auth, prepaid credits, private media storage, and BabySea SDK generation._
 
-Reference demo: <https://demo.generative-media-starter.babysea.live>
+<br/>
+
+**One-click deploy**
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbabysea-ai%2Fgenerative-media-starter&project-name=generative-media-starter&repository-name=generative-media-starter)
 
 </div>
 
