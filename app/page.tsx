@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { CircleCheckBig } from 'lucide-react';
+import { CircleCheckBig, LogIn } from 'lucide-react';
 
 import { GENERATION_COST_CREDITS } from '@/lib/app-config';
 import { getBabySeaModelConfig, isBabySeaConfigured } from '@/lib/babysea';
@@ -29,8 +29,10 @@ export default async function HomePage() {
         <Link
           href="/login"
           className="rounded-full border border-white/15 px-4 py-2 text-sm font-medium text-white transition hover:border-teal-300/60 hover:bg-white/10"
+          aria-label="Sign in"
         >
-          Sign in
+          <LogIn className="size-4 sm:hidden" aria-hidden="true" />
+          <span className="hidden sm:inline">Sign in</span>
         </Link>
       </nav>
 

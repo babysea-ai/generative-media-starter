@@ -14,6 +14,8 @@ All notable changes to `generative-media-starter` will be documented here. The f
 
 ### Changed
 
+- OG social image URL switched from `public` folder to `https://cdn.babysea.live/assets/logo/company/card/generative-media-starter.png` for reliable social-crawler resolution.
+- Landing page "Sign in" button now shows only a `LogIn` icon on mobile (`< sm`) and the full "Sign in" label on `sm+`, consistent with the dashboard sign-out button.
 - OG social image now served from the `public` folder (`/generative-media-starter.png`) instead of a raw GitHub URL.
 - Stats row ("Available balance" and "Execution policy") is now a two-column grid on all screen sizes so both pills sit side by side on mobile.
 - Sign-out button shows only a `LogOut` icon on mobile (`< sm`) and the full "Sign out" label on `sm+`.
