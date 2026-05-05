@@ -5,7 +5,8 @@ import '@/styles/globals.css';
 const title = 'Generative Media Starter';
 const description =
   'Generative media billing beyond checkout. Built on BabySea, Stripe, Supabase, Upstash, and Vercel or Netlify.';
-const socialImageUrl = '/generative-media-starter.png';
+const socialImageUrl =
+  'https://cdn.babysea.live/assets/logo/company/card/generative-media-starter.png';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://demo.generative-media-starter.babysea.live'),

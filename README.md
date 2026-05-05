@@ -7,14 +7,14 @@ Built with Next.js, Stripe, Supabase, Upstash, and the BabySea SDK.**
 
 <br/>
 
-[![Generative Media Starter](/generative-media-starter.png)](https://demo.generative-media-starter.babysea.live/)
-
-<br/>
-
 [![Open Source](https://img.shields.io/badge/open%20source-BabySea-48d1cc.svg)](https://babysea.ai)
 [![BabySea OSS Starters](https://img.shields.io/badge/oss%20starters-BabySea-0284c7.svg)](#babysea-oss-taxonomy)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/status-reference%20starter-orange.svg)](#status)
+
+<br/>
+
+[![Generative Media Starter](public/generative-media-starter.png)](https://demo.generative-media-starter.babysea.live/)
 
 <br/>
 
