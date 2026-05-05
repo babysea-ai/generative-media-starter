@@ -16,12 +16,12 @@ Built with Next.js, Stripe, Supabase, Upstash, and the BabySea SDK.**
 
 **Infrastructure**
 
+[![BabySea](https://img.shields.io/badge/execution-BabySea-48d1cc.svg)](https://babysea.ai)
 [![Next.js](https://img.shields.io/badge/app-Next.js-000000.svg?logo=nextdotjs&logoColor=white)](https://nextjs.org)
 [![React](https://img.shields.io/badge/ui-React-61DAFB.svg?logo=react&logoColor=111827)](https://react.dev)
-[![Supabase](https://img.shields.io/badge/auth%20%2B%20data-Supabase-3ECF8E.svg)](https://supabase.com)
 [![Stripe](https://img.shields.io/badge/billing-Stripe-635BFF.svg?logo=stripe&logoColor=white)](https://stripe.com)
+[![Supabase](https://img.shields.io/badge/auth%20%2B%20data-Supabase-3ECF8E.svg)](https://supabase.com)
 [![Upstash](https://img.shields.io/badge/rate%20limit-Upstash-00E9A3.svg)](https://upstash.com)
-[![BabySea](https://img.shields.io/badge/execution-BabySea-48d1cc.svg)](https://babysea.ai)
 
 <br/>
 
@@ -32,6 +32,7 @@ _A deployable reference app for auth, prepaid credits, private media storage, an
 **One-click deploy**
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbabysea-ai%2Fgenerative-media-starter&project-name=generative-media-starter&repository-name=generative-media-starter)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https%3A%2F%2Fgithub.com%2Fbabysea-ai%2Fgenerative-media-starter)
 
 </div>
 
