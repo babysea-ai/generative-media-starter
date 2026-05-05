@@ -1,17 +1,13 @@
-import Link from 'next/link';
+import { LogOut } from 'lucide-react';
 import { redirect } from 'next/navigation';
 
+import { NavLinks } from './_components/nav-links';
 import { signOut } from './_lib/server-actions';
 
 import { BABYSEA_PROVIDER_ORDER_DEFAULT } from '@/lib/app-config';
 import { getUser } from '@/lib/supabase/server';
 import { formatCredits } from '@/lib/utils';
 import { InlineFavicon } from '@/styles/inline-babysea';
-
-const navItems = [
-  { href: '/dashboard/generate', label: 'Generate' },
-  { href: '/dashboard/billing', label: 'Billing' },
-];
 
 export default async function DashboardLayout({
   children,
@@ -49,7 +45,7 @@ export default async function DashboardLayout({
               </div>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-2">
+            <div className="grid grid-cols-2 justify-center gap-2">
               <div className="flex min-w-0 items-baseline justify-center gap-1.5 rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-center">
                 <span className="text-sm text-slate-400">
                   Available balance:
@@ -69,21 +65,15 @@ export default async function DashboardLayout({
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-2 lg:justify-end">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-slate-200 transition hover:border-teal-300/60 hover:bg-teal-300/10 hover:text-white"
-                >
-                  {item.label}
-                </Link>
-              ))}
+              <NavLinks />
               <form action={signOut}>
                 <button
                   type="submit"
                   className="rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-slate-400 transition hover:border-rose-300/60 hover:bg-rose-300/10 hover:text-rose-100"
+                  aria-label="Sign out"
                 >
-                  Sign out
+                  <LogOut className="size-4 sm:hidden" aria-hidden="true" />
+                  <span className="hidden sm:inline">Sign out</span>
                 </button>
               </form>
             </div>

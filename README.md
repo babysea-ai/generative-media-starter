@@ -7,6 +7,10 @@ Built with Next.js, Stripe, Supabase, Upstash, and the BabySea SDK.**
 
 <br/>
 
+[![Generative Media Starter](/generative-media-starter.png)](https://demo.generative-media-starter.babysea.live/)
+
+<br/>
+
 [![Open Source](https://img.shields.io/badge/open%20source-BabySea-48d1cc.svg)](https://babysea.ai)
 [![BabySea OSS Starters](https://img.shields.io/badge/oss%20starters-BabySea-0284c7.svg)](#babysea-oss-taxonomy)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
@@ -370,9 +374,9 @@ See [docs/deploy-vercel.md](docs/deploy-vercel.md) for the Vercel-specific deplo
 
 ## Related projects
 
-- 🏝️ [adaptive-island](https://github.com/babysea-ai/adaptive-island): cache-first adaptive provider selection for multi-vendor AI workloads, built on Databricks, Upstash, and Supabase.
-- 🏰 [ledger-fortress](https://github.com/babysea-ai/ledger-fortress): atomic credit settlement engine for async AI workloads, built on Stripe and Supabase.
-- 🌊 [BabySea SDK](https://github.com/babysea-ai/babysea-js): typed access to BabySea's generative media execution control plane.
+- 🏝️ [adaptive-island](https://github.com/babysea-ai/adaptive-island): Cache-first provider selection for multi-vendor AI workloads. Built on Databricks, Upstash, and Supabase.
+- 🏰 [ledger-fortress](https://github.com/babysea-ai/ledger-fortress): Atomic credit settlement for async AI workloads. Built on Stripe and Supabase.
+- 🌊 [BabySea SDK](https://github.com/babysea-ai/babysea-js): Open source TypeScript SDK for the BabySea execution control plane for generative media.
 
 ## Contributing
 
