@@ -75,7 +75,7 @@ BabySea handles provider routing behind the SDK and model schema. The starter ha
 | Layer                | Required stack             | Runtime responsibility                                                                                    |
 | -------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------- |
 | Product runtime      | Next.js App Router + React | Render landing, auth, dashboard, billing, and generation history.                                         |
-| Authentication       | Supabase Auth              | Email/password sign-up and user-owned dashboard access.                                                   |
+| Authentication       | Supabase Auth              | Google OAuth sign-in and user-owned dashboard access.                                                     |
 | Operational database | Supabase Postgres          | Store balances, immutable ledger events, generation records, Stripe customers, and processed webhook IDs. |
 | Credit settlement    | Supabase RPC functions     | Atomically grant, reserve, charge, and refund credits.                                                    |
 | Billing              | Stripe Checkout + webhooks | Sell one-time prepaid credit packs and grant credits idempotently.                                        |
@@ -245,7 +245,7 @@ The doctor verifies environment variables, BabySea schema/cost access, Stripe Pr
 pnpm dev
 ```
 
-Open <http://localhost:3011>, sign up, buy a test credit pack with Stripe test cards, then generate media from the dashboard.
+Open <http://localhost:3011>, sign in with Google, buy a test credit pack with Stripe test cards, then generate media from the dashboard.
 
 ### 8. Deploy on Vercel or Netlify
 
@@ -306,7 +306,7 @@ See [docs/deploy-vercel.md](docs/deploy-vercel.md) for the Vercel-specific deplo
 
 ## Current starter surface
 
-- [x] Supabase email/password auth
+- [x] Supabase Google OAuth auth
 - [x] Stripe Checkout credit packs
 - [x] Idempotent Stripe webhook grants
 - [x] Atomic reserve, charge, and refund functions in Postgres
@@ -346,15 +346,15 @@ See [docs/deploy-vercel.md](docs/deploy-vercel.md) for the Vercel-specific deplo
 
 ## Troubleshooting
 
-| Symptom                                     | Fix                                                                            |
-| ------------------------------------------- | ------------------------------------------------------------------------------ |
-| Stripe Checkout returns to the wrong host   | Update `NEXT_PUBLIC_SITE_URL` in Vercel or Netlify and redeploy.               |
-| Supabase email links fail                   | Add `https://your-app.example.com/**` to Auth redirect URLs.                   |
-| Checkout succeeds but credits do not appear | Verify the Stripe webhook URL, event type, and `STRIPE_WEBHOOK_SECRET`.        |
-| Generation is disabled                      | Set a valid server-side `BABYSEA_API_KEY`.                                     |
-| Generation says insufficient credits        | Complete a test Checkout session or grant credits in Supabase for development. |
-| Assets fail to display                      | Confirm the `generated-media` bucket exists and migrations ran.                |
-| Rate limit exceeded                         | Wait for the configured Upstash window or tune `lib/rate-limit.ts`.            |
+| Symptom                                     | Fix                                                                              |
+| ------------------------------------------- | -------------------------------------------------------------------------------- |
+| Stripe Checkout returns to the wrong host   | Update `NEXT_PUBLIC_SITE_URL` in Vercel or Netlify and redeploy.                 |
+| Google sign-in redirects fail               | Add `https://your-app.example.com/auth/callback` to Supabase Auth redirect URLs. |
+| Checkout succeeds but credits do not appear | Verify the Stripe webhook URL, event type, and `STRIPE_WEBHOOK_SECRET`.          |
+| Generation is disabled                      | Set a valid server-side `BABYSEA_API_KEY`.                                       |
+| Generation says insufficient credits        | Complete a test Checkout session or grant credits in Supabase for development.   |
+| Assets fail to display                      | Confirm the `generated-media` bucket exists and migrations ran.                  |
+| Rate limit exceeded                         | Wait for the configured Upstash window or tune `lib/rate-limit.ts`.              |
 
 ## Security notes
 

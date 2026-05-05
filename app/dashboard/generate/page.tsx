@@ -50,6 +50,12 @@ export default async function GeneratePage({ searchParams }: PageProps) {
     .eq('user_id', user?.id ?? '')
     .order('created_at', { ascending: false });
 
+  const { data: balance } = await supabase
+    .from('credit_balances')
+    .select('credits')
+    .eq('user_id', user?.id ?? '')
+    .maybeSingle();
+
   const hasBabySeaApiKey = isBabySeaConfigured();
   const modelConfig = hasBabySeaApiKey
     ? await getBabySeaModelConfig().catch((error) => {
@@ -60,6 +66,9 @@ export default async function GeneratePage({ searchParams }: PageProps) {
     : null;
   const generationCostCredits =
     modelConfig?.costCredits ?? GENERATION_COST_CREDITS;
+  const availableCredits = Number(balance?.credits ?? 0);
+  const hasCreditsForGeneration = availableCredits >= generationCostCredits;
+  const canSubmitGeneration = hasBabySeaApiKey && hasCreditsForGeneration;
   const generationRatios = modelConfig?.schema.ratios.length
     ? modelConfig.schema.ratios
     : [FALLBACK_GENERATION_RATIO];
@@ -105,8 +114,16 @@ export default async function GeneratePage({ searchParams }: PageProps) {
             </div>
           ) : null}
 
+          {hasBabySeaApiKey && !hasCreditsForGeneration ? (
+            <div className="rounded-2xl border border-amber-300/30 bg-amber-300/10 p-4 text-sm text-amber-100">
+              Add credits before generating. This model costs{' '}
+              {formatCredits(generationCostCredits)} per output and your current
+              balance is {formatCredits(availableCredits)}.
+            </div>
+          ) : null}
+
           <form
-            action={generateMedia}
+            action={canSubmitGeneration ? generateMedia : undefined}
             className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur"
           >
             <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-4 text-sm text-slate-300">
@@ -226,7 +243,16 @@ export default async function GeneratePage({ searchParams }: PageProps) {
               </div>
             </div>
 
-            <GenerateSubmitButton disabled={!hasBabySeaApiKey} />
+            <GenerateSubmitButton
+              disabled={!canSubmitGeneration}
+              disabledLabel={
+                !hasBabySeaApiKey
+                  ? 'Generation unavailable'
+                  : !hasCreditsForGeneration
+                    ? 'Add credits to generate'
+                    : undefined
+              }
+            />
           </form>
         </div>
       </section>

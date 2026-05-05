@@ -50,16 +50,15 @@ starter predictable across deployments.
 
 ## Change auth behavior
 
-The starter ships with email/password auth. For local demos or private previews,
-you can disable email confirmation in Supabase. For a public production app,
-keep confirmation enabled and configure redirect URLs.
-
-If you add OAuth or magic links, add the deployed app URL to Supabase redirect
-URLs:
+The starter ships with Google OAuth through Supabase Auth. Add the deployed app
+URL to Supabase redirect URLs:
 
 ```text
-https://your-app.example.com/**
+https://your-app.example.com/auth/callback
 ```
+
+If you switch to another OAuth provider, keep the same redirect pattern and
+update the login server action.
 
 ## Storage and assets
 

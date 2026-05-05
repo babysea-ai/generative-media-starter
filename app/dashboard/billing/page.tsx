@@ -121,15 +121,6 @@ export default async function BillingPage({ searchParams }: PageProps) {
             idempotently, and Supabase keeps the balance and ledger ready for
             atomic generation settlement.
           </p>
-
-          {!stripeReady ? (
-            <div className="mt-6">
-              <DismissibleBanner tone="warning">
-                Set `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` before
-                buying real credits.
-              </DismissibleBanner>
-            </div>
-          ) : null}
         </div>
 
         <div className="grid gap-4 md:grid-cols-3">
@@ -150,14 +141,29 @@ export default async function BillingPage({ searchParams }: PageProps) {
               <p className="mt-4 text-sm text-slate-300">{pack.description}</p>
               <button
                 type="submit"
-                className="mt-6 w-full cursor-pointer rounded-full bg-teal-300 px-4 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-teal-200"
+                disabled={!stripeReady}
+                className="mt-6 w-full rounded-full px-4 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:border disabled:border-white/10 disabled:bg-slate-800 disabled:text-slate-500 enabled:cursor-pointer enabled:bg-teal-300 enabled:text-slate-950 enabled:hover:bg-teal-200"
               >
-                Buy ${(pack.amountCents / 100).toFixed(0)} credits
+                {stripeReady
+                  ? `Buy $${(pack.amountCents / 100).toFixed(0)} credits`
+                  : 'Add Stripe keys to buy'}
               </button>
             </form>
           ))}
         </div>
       </section>
+
+      {!stripeReady ? (
+        <DismissibleBanner tone="warning">
+          Add your Stripe keys to enable credit purchases in this demo.
+        </DismissibleBanner>
+      ) : null}
+
+      {params.billing_unavailable ? (
+        <DismissibleBanner tone="warning">
+          Checkout is disabled until Stripe keys are configured for this demo.
+        </DismissibleBanner>
+      ) : null}
 
       {params.success ? (
         <DismissibleBanner tone="success">

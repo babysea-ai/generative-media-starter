@@ -4,9 +4,13 @@ import { useFormStatus } from 'react-dom';
 
 type GenerateSubmitButtonProps = {
   disabled: boolean;
+  disabledLabel?: string;
 };
 
-export function GenerateSubmitButton({ disabled }: GenerateSubmitButtonProps) {
+export function GenerateSubmitButton({
+  disabled,
+  disabledLabel,
+}: GenerateSubmitButtonProps) {
   const { pending } = useFormStatus();
   const isDisabled = disabled || pending;
   const stateClassName = disabled
@@ -36,7 +40,11 @@ export function GenerateSubmitButton({ disabled }: GenerateSubmitButtonProps) {
             className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-slate-950/30 border-t-slate-950"
           />
         ) : null}
-        {pending ? 'Generating media…' : 'Generate media'}
+        {pending
+          ? 'Generating media…'
+          : disabled
+            ? (disabledLabel ?? 'Generate media')
+            : 'Generate media'}
       </button>
 
       {pending ? (

@@ -23,12 +23,12 @@ file_size_limit = "50MiB"
 
 [auth]
 site_url = "http://localhost:3011"
-additional_redirect_urls = ["http://localhost:3011"]
+additional_redirect_urls = ["http://localhost:3011/auth/callback"]
 jwt_expiry = 3600
 enable_signup = true
 
 [auth.email]
-enable_signup = true
+enable_signup = false
 double_confirm_changes = false
 enable_confirmations = false
 

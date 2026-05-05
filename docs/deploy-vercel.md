@@ -90,7 +90,7 @@ https://your-app.example.com/api/stripe/webhook
 Supabase redirect URL pattern for link-based auth:
 
 ```text
-https://your-app.example.com/**
+https://your-app.example.com/auth/callback
 ```
 
 ## 5. Verify production

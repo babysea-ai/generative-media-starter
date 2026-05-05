@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
 import { getCreditPack } from '@/lib/app-config';
-import { getSiteUrl } from '@/lib/env';
+import { getOptionalEnv, getSiteUrl } from '@/lib/env';
 import { createStripeClient } from '@/lib/stripe';
 import { resolveStripePriceId } from '@/lib/stripe-prices';
 import { createSupabaseAdminClient } from '@/lib/supabase/admin';
@@ -22,6 +22,13 @@ export async function createCheckoutSession(formData: FormData) {
 
   if (!pack) {
     throw new Error('Unknown credit pack');
+  }
+
+  if (
+    !getOptionalEnv('STRIPE_SECRET_KEY') ||
+    !getOptionalEnv('STRIPE_WEBHOOK_SECRET')
+  ) {
+    redirect('/dashboard/billing?billing_unavailable=1');
   }
 
   const stripe = createStripeClient();

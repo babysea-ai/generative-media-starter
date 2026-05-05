@@ -48,30 +48,45 @@ The migrations create:
 
 ## 3. Configure auth
 
-Enable email/password auth.
+Enable Google OAuth in Supabase Auth.
+
+In Supabase, go to **Authentication → Providers → Google**, enable the provider,
+and add your Google OAuth Client ID and Client Secret. In Google Cloud Console,
+add the Supabase callback URL shown in the Google provider panel, usually:
+
+```text
+https://<your-project-ref>.supabase.co/auth/v1/callback
+```
 
 For local development:
 
-| Setting       | Value                   |
-| ------------- | ----------------------- |
-| Site URL      | `http://localhost:3011` |
-| Redirect URLs | `http://localhost:3011` |
+| Setting       | Value                                 |
+| ------------- | ------------------------------------- |
+| Site URL      | `http://localhost:3011`               |
+| Redirect URLs | `http://localhost:3011/auth/callback` |
 
 For production:
 
-| Setting       | Value                             |
-| ------------- | --------------------------------- |
-| Site URL      | `https://your-app.example.com`    |
-| Redirect URLs | `https://your-app.example.com/**` |
+| Setting       | Value                                        |
+| ------------- | -------------------------------------------- |
+| Site URL      | `https://your-app.example.com`               |
+| Redirect URLs | `https://your-app.example.com/auth/callback` |
 
-The redirect URL pattern is required for email confirmations, password reset
-links, magic links, and OAuth. If you disable email confirmation for a local demo
-or private preview, the Site URL is usually enough.
+The redirect URL pattern is required for OAuth callbacks after Supabase completes
+the provider exchange.
+
+Google sign-in redirects through the starter's built-in OAuth callback route:
+
+```text
+https://your-app.example.com/auth/callback
+```
+
+Use the exact callback URL for the deployed app.
 
 For the reference demo domain:
 
 ```text
-https://demo.generative-media-starter.babysea.live/**
+https://demo.generative-media-starter.babysea.live/auth/callback
 ```
 
 ## 4. Service role safety

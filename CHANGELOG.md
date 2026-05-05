@@ -9,6 +9,18 @@ All notable changes to `generative-media-starter` will be documented here. The f
 ### Added
 
 - `netlify.toml` and a Netlify "Deploy" one-click button in the README, alongside the existing Vercel button. Netlify uses the official `@netlify/plugin-nextjs` runtime, which supports the Supabase auth-refresh proxy (Node.js Middleware) on Netlify Functions without any source changes.
+- Google-only Supabase OAuth login with a dedicated `/auth/callback` route for server-side code exchange.
+- Inline Google OAuth icon in the login button.
+
+### Changed
+
+- Removed email/password, magic-link, and OTP auth paths from the starter surface. The local Supabase config disables email signup and docs now point to exact Google OAuth callback URLs.
+- Disabled generation submission in the UI when the user has insufficient credits, preventing form submission before any generation server action runs.
+- Disabled Stripe checkout buttons when Stripe secrets are missing, with a demo-safe banner above the credit-ledger message area.
+
+### Security
+
+- Hardened the OAuth callback `next` parameter to allow only same-origin dashboard paths and avoid open redirects.
 
 ### Notes
 
@@ -21,7 +33,7 @@ Initial public release.
 ### Added
 
 - Next.js 16 (App Router) reference application with landing, login, and dashboard (Generate + Billing) routes.
-- Supabase email/password authentication with auth-refresh middleware.
+- Supabase Google OAuth authentication with auth-refresh middleware.
 - Four PostgreSQL migrations: starter schema (`credit_balances`, `credit_ledger`, `generations`, `stripe_customers`, `processed_stripe_events`), BabySea API key column, generation-output preservation, and `generated-media` bucket hardening.
 - Atomic credit RPCs for grant, reserve, charge, and refund flows with RLS for user-owned reads.
 - Idempotent Stripe webhook handler for `checkout.session.completed` and `checkout.session.async_payment_succeeded`.
