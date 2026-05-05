@@ -24,7 +24,6 @@ export const metadata: Metadata = {
     'supabase',
     'upstash',
     'vercel',
-    'netlify',
     'ai-infrastructure',
     'control-plane',
     'execution-layer',

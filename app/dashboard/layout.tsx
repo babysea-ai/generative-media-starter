@@ -47,9 +47,7 @@ export default async function DashboardLayout({
 
             <div className="grid grid-cols-2 justify-center gap-2">
               <div className="flex min-w-0 items-baseline justify-center gap-1.5 rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-center">
-                <span className="text-sm text-slate-400">
-                  Available balance:
-                </span>
+                <span className="text-sm text-slate-400">Balance:</span>
                 <span className="text-sm font-semibold text-white">
                   {formatCredits(balance?.credits)} credits
                 </span>

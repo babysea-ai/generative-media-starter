@@ -39,7 +39,7 @@ export default async function HomePage() {
       <section className="grid flex-1 items-center gap-12 py-20 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
           <div className="mb-6 inline-flex rounded-full border border-teal-300/20 bg-teal-300/10 px-3 py-1 text-sm text-teal-100">
-            BabySea + Stripe + Supabase + Upstash
+            BabySea + Stripe + Supabase + Upstash + Vercel
           </div>
           <h1 className="max-w-4xl text-4xl font-semibold tracking-tight text-white md:text-6xl">
             Generative media billing beyond checkout.
