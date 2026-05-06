@@ -374,9 +374,9 @@ See [docs/deploy-vercel.md](docs/deploy-vercel.md) for the Vercel-specific deplo
 
 ## Related projects
 
-- 🏝️ [adaptive-island](https://github.com/babysea-ai/adaptive-island): Cache-first provider selection for multi-vendor AI workloads. Built on Databricks, Upstash, and Supabase.
+- 🏝️ [adaptive-island](https://github.com/babysea-ai/adaptive-island): Cache-first provider selection for multi-vendor AI workloads. Built on Databricks, Supabase, and Upstash.
 - 🏰 [ledger-fortress](https://github.com/babysea-ai/ledger-fortress): Atomic credit settlement for async AI workloads. Built on Stripe and Supabase.
-- 🌊 [BabySea SDK](https://github.com/babysea-ai/babysea-js): Open source TypeScript SDK for the BabySea execution control plane for generative media.
+- 🌊 [BabySea SDK](https://github.com/babysea-ai/babysea-js): Official SDK for the BabySea execution control plane for generative media.
 
 ## Contributing
 

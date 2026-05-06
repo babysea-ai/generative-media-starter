@@ -1,7 +1,7 @@
 {
   "name": "generative-media-starter",
   "version": "0.1.0",
-  "description": "An open-source starter for launching a credit-based generative media app with BabySea SDK, Vercel, Stripe, Supabase, and Upstash.",
+  "description": "Launch a credit-based generative media app. Built with Next.js, Stripe, Supabase, Upstash, and the BabySea SDK.",
   "private": true,
   "license": "Apache-2.0",
   "homepage": "https://demo.generative-media-starter.babysea.live",

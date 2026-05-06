@@ -50,7 +50,7 @@ The migrations create:
 
 Enable Google OAuth in Supabase Auth.
 
-In Supabase, go to **Authentication → Providers → Google**, enable the provider,
+In Supabase, go to **Authentication ➜ Providers ➜ Google**, enable the provider,
 and add your Google OAuth Client ID and Client Secret. In Google Cloud Console,
 add the Supabase callback URL shown in the Google provider panel, usually:
 

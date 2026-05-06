@@ -392,7 +392,7 @@ function record(status, title, details) {
   results.push({ status, title, details });
 
   const icon = status === 'pass' ? '✓' : status === 'warn' ? '!' : '✕';
-  const suffix = details ? ` — ${details}` : '';
+  const suffix = details ? ` - ${details}` : '';
 
   console.log(`${icon} ${title}${suffix}`);
 }
