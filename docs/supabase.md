@@ -83,7 +83,7 @@ https://your-app.example.com/auth/callback
 
 Use the exact callback URL for the deployed app.
 
-For the reference demo domain:
+For the BabySea demo domain:
 
 ```text
 https://demo.generative-media-starter.babysea.live/auth/callback

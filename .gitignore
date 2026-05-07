@@ -1,6 +1,8 @@
 .env
 .env.*
 !.env.example
+.sentryclirc
+.sentryclirc.*
 !next-env.d.ts
 .next
 node_modules

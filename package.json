@@ -37,6 +37,7 @@
     "clean": "git clean -xdf .next .turbo node_modules",
     "dev": "next dev --port=3011",
     "doctor": "node scripts/doctor.mjs",
+    "sentry:check": "node scripts/sentry-project-check.mjs",
     "format": "prettier --check \"**/*.{ts,tsx,css,md,json,mjs}\"",
     "format:fix": "prettier --write \"**/*.{ts,tsx,css,md,json,mjs}\"",
     "start": "next start",

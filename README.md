@@ -8,9 +8,13 @@ Built with Next.js, Stripe, Supabase, Upstash, and the BabySea SDK.**
 <br/>
 
 [![Open Source](https://img.shields.io/badge/open%20source-BabySea-48d1cc.svg)](https://babysea.ai)
-[![BabySea OSS Starters](https://img.shields.io/badge/oss%20starters-BabySea-0284c7.svg)](#babysea-oss-taxonomy)
+[![BabySea OSS Starters](https://img.shields.io/badge/oss%20starters-BabySea-0284c7.svg)](#what-this-is)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/status-reference%20starter-orange.svg)](#status)
+[![Status](https://img.shields.io/badge/status-working%20starter-2ea44f.svg)](#status)
+[![Sentry](https://img.shields.io/badge/Sentry-code%20guard-362D59.svg?logo=sentry&logoColor=white)](https://sentry.io)
+[![Sentry Project Check](https://github.com/babysea-ai/generative-media-starter/actions/workflows/sentry-check.yml/badge.svg)](https://github.com/babysea-ai/generative-media-starter/actions/workflows/sentry-check.yml)
+[![CodeQL](https://github.com/babysea-ai/generative-media-starter/actions/workflows/codeql.yml/badge.svg)](https://github.com/babysea-ai/generative-media-starter/actions/workflows/codeql.yml)
+[![Package Check](https://github.com/babysea-ai/generative-media-starter/actions/workflows/publish-check.yml/badge.svg)](https://github.com/babysea-ai/generative-media-starter/actions/workflows/publish-check.yml)
 
 <br/>
 
@@ -29,7 +33,7 @@ Built with Next.js, Stripe, Supabase, Upstash, and the BabySea SDK.**
 
 <br/>
 
-_A deployable reference app for auth, prepaid credits, private media storage, and BabySea SDK generation._
+_A working deployable app for auth, prepaid credits, private media storage, and BabySea SDK generation._
 
 <br/>
 
@@ -40,29 +44,11 @@ _A deployable reference app for auth, prepaid credits, private media storage, an
 
 </div>
 
----
-
-## BabySea OSS taxonomy
-
-BabySea open source projects are organized into three categories:
-
-[![BabySea OSS Primitives](https://img.shields.io/badge/oss%20primitives-BabySea-ea580c.svg)](#babysea-oss-taxonomy)
-[![BabySea SDKs](https://img.shields.io/badge/sdks-BabySea-4f46e5.svg)](#babysea-oss-taxonomy)
-[![BabySea OSS Starters](https://img.shields.io/badge/oss%20starters-BabySea-0284c7.svg)](#babysea-oss-taxonomy)
-
-| Category           | Description                                                                                                                                                                                                                                                         |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **OSS Primitives** | Production-derived infrastructure patterns extracted from BabySea's execution control plane. These projects isolate one hard system invariant at a time, such as provider routing, credit settlement, idempotency, failover, reconciliation, or operational safety. |
-| **SDKs**           | Typed developer entry points into BabySea's execution control plane. SDKs provide application developers with a clean interface for creating, tracking, managing, and settling generative-media workloads without rebuilding provider-specific lifecycle logic.     |
-| **OSS Starters**   | Deployable reference applications that help builders adopt BabySea patterns quickly. Starters combine product UI, auth, billing, storage, rate limits, and BabySea SDK execution into working examples optimized for onboarding and implementation.                 |
-
----
-
 ## What this is
 
-`generative-media-starter` is a Next.js reference application for launching a prepaid generative media product on top of BabySea.
+`generative-media-starter` is a working Next.js starter application for launching a prepaid generative media product on top of BabySea.
 
-It is **inspired by BabySea's production execution model**, not a dump of internal product code. The starter keeps the operational shape that matters for builders: users buy credits, the app reserves credits before provider dispatch, BabySea runs the generation behind a server-managed API key, the generated asset is copied into private storage, and credits are settled on success or refunded on failure.
+It **mirrors BabySea's production execution model**, without dumping internal product code. The starter keeps the operational shape that matters for builders: users buy credits, the app reserves credits before provider dispatch, BabySea runs the generation behind a server-managed API key, the generated asset is copied into private storage, and credits are settled on success or refunded on failure.
 
 The default app is intentionally focused:
 
@@ -287,7 +273,7 @@ NEXT_PUBLIC_SITE_URL=https://your-app.example.com
 
 If you attach a custom domain after the first deploy, update Vercel or Netlify, Supabase Auth URLs, and the Stripe webhook endpoint, then redeploy.
 
-See [docs/deploy-vercel.md](docs/deploy-vercel.md) for the Vercel-specific deployment checklist. Netlify uses the `netlify.toml` settings above.
+See [docs/deploy-vercel.md](docs/deploy-vercel.md) for the Vercel-specific deployment checklist and [docs/deploy-netlify.md](docs/deploy-netlify.md) for the Netlify-specific deployment checklist.
 
 ## Environment variables
 
@@ -367,16 +353,20 @@ See [docs/deploy-vercel.md](docs/deploy-vercel.md) for the Vercel-specific deplo
 - Rotate any secret that was pasted into a terminal, chat, issue, or screenshot.
 - The Supabase service role is used only in trusted server actions and webhooks.
 - Browser code only receives publishable keys.
+- Sentry code guard is repository-only for ownership, Seer, and scheduled project-wiring checks; this starter does not include a Sentry SDK, DSN, tracing, or runtime telemetry.
 
 ## Status
 
-`generative-media-starter` is a **reference starter** (`v0.1.0`). It is built to demonstrate a production-shaped BabySea application boundary with community-owned infrastructure. Fork it, deploy it, and customize the product surface for your own generative media business.
+`generative-media-starter` is a **working OSS starter** (`v0.1.0`). It is built and validated as a deployable BabySea application boundary with community-owned infrastructure. Fork it, run `pnpm run doctor`, deploy it to Vercel or Netlify, and customize the product surface for your own generative media business.
 
-## Related projects
+## Related resources
 
-- 🏝️ [adaptive-island](https://github.com/babysea-ai/adaptive-island): Cache-first provider selection for multi-vendor AI workloads. Built on Databricks, Supabase, and Upstash.
-- 🏰 [ledger-fortress](https://github.com/babysea-ai/ledger-fortress): Atomic credit settlement for async AI workloads. Built on Stripe and Supabase.
-- 🌊 [BabySea SDK](https://github.com/babysea-ai/babysea-js): Official SDK for the BabySea execution control plane for generative media.
+- 🌊 [BabySea SDK](https://github.com/babysea-ai/babysea): the production TypeScript SDK this starter uses for schema loading, cost estimates, generation, and lifecycle handling.
+- 🚀 [docs/deploy-vercel.md](docs/deploy-vercel.md): Vercel deployment guide.
+- 🧭 [docs/deploy-netlify.md](docs/deploy-netlify.md): Netlify deployment guide.
+- 🗄️ [docs/supabase.md](docs/supabase.md): Supabase Auth, Postgres, and Storage setup.
+- 💳 [docs/stripe.md](docs/stripe.md): Stripe Checkout price and webhook setup.
+- 🎛️ [docs/customization.md](docs/customization.md): safe model, credit-pack, auth, and storage customization.
 
 ## Contributing
 

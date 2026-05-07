@@ -1,27 +1,35 @@
-# Deploy to Vercel
+# Deploy to Netlify
 
-This guide starts from a fresh public repo or a fork and ends with a production
-URL that works with Supabase Auth, Stripe Checkout, and BabySea generation.
+This guide starts from a fresh public repo or fork and ends with a production
+Netlify URL that works with Supabase Auth, Stripe Checkout, and BabySea
+generation.
 
-## 1. Create the Vercel project
+## 1. Create the Netlify site
 
-Use the button in the main README, or create a project manually in Vercel.
+Use the Netlify button in the main README, or create a site manually from the
+GitHub repository.
 
-| Vercel setting      | Value                                               |
-| ------------------- | --------------------------------------------------- |
-| Framework Preset    | Next.js                                             |
-| Root Directory      | Empty for a standalone repo                         |
-| Install Command     | `pnpm install --frozen-lockfile --ignore-workspace` |
-| Build Command       | `pnpm build`                                        |
-| Development Command | `pnpm dev`                                          |
+The checked-in `netlify.toml` is the source of truth for the build:
 
-If you vendor this starter inside a monorepo, set Root Directory to the folder
-that contains this README. The install command explicitly ignores parent
-workspaces so Vercel installs this starter from its own lockfile.
+| Netlify setting   | Value                                                             |
+| ----------------- | ----------------------------------------------------------------- |
+| Framework         | Next.js                                                           |
+| Base directory    | Empty for a standalone repo                                       |
+| Build command     | `pnpm install --frozen-lockfile --ignore-workspace && pnpm build` |
+| Publish directory | `.next`                                                           |
+| Node version      | `20`                                                              |
+
+If you vendor this starter inside a monorepo, set the Base directory to the
+folder that contains this README. The build command explicitly ignores parent
+workspaces so Netlify installs this starter from its own lockfile.
+
+Netlify's official Next.js runtime handles App Router rendering, Route Handlers,
+and the Supabase auth-refresh proxy through Netlify Functions. No edge-runtime
+conversion or source-code change is required.
 
 ## 2. Add environment variables
 
-Add every runtime variable from `.env.example` to Vercel.
+Add every runtime variable from `.env.example` to Netlify.
 
 Required for production:
 
@@ -70,13 +78,14 @@ NEXT_PUBLIC_SITE_URL=https://demo.generative-media-starter.babysea.live
 ```
 
 After changing `NEXT_PUBLIC_SITE_URL`, redeploy the app. Stripe Checkout uses
-this value for success and cancel URLs.
+this value for success and cancel URLs, and Supabase Auth uses it for callback
+validation.
 
 ## 4. Update external services after the domain changes
 
-When the final Vercel domain or custom domain is known, update these places:
+When the final Netlify domain or custom domain is known, update these places:
 
-1. Vercel `NEXT_PUBLIC_SITE_URL`
+1. Netlify `NEXT_PUBLIC_SITE_URL`
 2. Supabase Auth Site URL
 3. Supabase redirect URL pattern if using link-based auth
 4. Stripe webhook endpoint
@@ -98,7 +107,7 @@ https://your-app.example.com/auth/callback
 After deployment:
 
 1. Open the deployed app.
-2. Create a user.
+2. Create a user with Google sign-in.
 3. Buy a Stripe test credit pack.
 4. Confirm credits appear in the dashboard.
 5. Submit a generation.
@@ -107,21 +116,25 @@ After deployment:
 ## Production runtime notes
 
 - The generation route waits for BabySea completion and exports a 180 second
-  maximum duration. Use a Vercel plan/runtime configuration that supports this
-  duration, or shorten the wait and move settlement into a background worker.
+  maximum duration. Use a Netlify Functions configuration that supports your
+  expected generation wait time, or shorten the wait and move settlement into a
+  background worker.
 - Keep Stripe test-mode and live-mode products, prices, keys, and webhook
   secrets separate. Re-run `pnpm run doctor` when switching modes.
 - Upstash Redis is required for production generation rate limiting.
-- Do not deploy with localhost URLs in Vercel environment variables; hosted
+- Do not deploy with localhost URLs in Netlify environment variables; hosted
   deployments reject localhost app and Supabase URLs.
+- Keep `BABYSEA_API_KEY`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`,
+  `SUPABASE_SECRET_KEY`, and Upstash tokens server-side in Netlify environment
+  variables only.
 
 ## Troubleshooting
 
 | Symptom                                | Check                                                                                         |
 | -------------------------------------- | --------------------------------------------------------------------------------------------- |
-| Checkout returns to the wrong URL      | `NEXT_PUBLIC_SITE_URL` in Vercel, then redeploy.                                              |
-| Stripe webhook is not granting credits | Webhook URL, event type, signing secret, and Vercel logs.                                     |
+| Checkout returns to the wrong URL      | `NEXT_PUBLIC_SITE_URL` in Netlify, then redeploy.                                             |
+| Stripe webhook is not granting credits | Webhook URL, event type, signing secret, and Netlify function logs.                           |
 | Supabase links redirect incorrectly    | Auth Site URL and redirect URL allow-list.                                                    |
 | Generation button is disabled          | `BABYSEA_API_KEY` exists and starts with `bye_`.                                              |
 | Preflight fails for storage MIME types | Apply migrations, then verify the `generated-media` bucket only allows PNG/JPEG/WebP/GIF/MP4. |
-| Build warns about workspace root       | Harmless in this monorepo because multiple lockfiles exist; standalone copies do not show it. |
+| Build detects the parent workspace     | Confirm the Netlify Base directory and keep `--ignore-workspace` in the build command.        |

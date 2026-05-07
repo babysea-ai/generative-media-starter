@@ -1,6 +1,6 @@
 # generative-media-starter
 
-`generative-media-starter` is a deployable reference application for launching a credit-based generative media product on top of BabySea.
+`generative-media-starter` is a working deployable application for launching a credit-based generative media product on top of BabySea.
 See [README.md](README.md) for the full story.
 
 This file mirrors the README so deploys, IDEs, and tooling that read `AGENTS.md` see the same context.
@@ -18,8 +18,8 @@ This file mirrors the README so deploys, IDEs, and tooling that read `AGENTS.md`
 | `lib/rate-limit.ts`                     | Upstash Redis rate-limit policy (production-required)                                            |
 | `lib/env.ts`                            | Zod-validated environment variable contract                                                      |
 | `supabase/migrations/`                  | PostgreSQL migrations: starter schema, BabySea key column, output preservation, bucket hardening |
-| `scripts/doctor.mjs`                    | Preflight validator for env, BabySea, Stripe, Supabase, Upstash, and Vercel config               |
-| `docs/`                                 | Supabase, Stripe, deploy-vercel, and customization guides                                        |
+| `scripts/doctor.mjs`                    | Preflight validator for env, BabySea, Stripe, Supabase, Upstash, and Vercel/Netlify config       |
+| `docs/`                                 | Supabase, Stripe, deploy-vercel, deploy-netlify, and customization guides                        |
 | `proxy.ts`                              | Next.js middleware (Supabase auth refresh)                                                       |
 
 ## Conventions

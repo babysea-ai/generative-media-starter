@@ -1,19 +1,28 @@
 # Changelog
 
 All notable changes to `generative-media-starter` will be documented here. The format follows
-[Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to
+[Keep a Changelog](https://keepachangelog.com/en/1.1.0), and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
 ### Added
 
+- Update favicon.
 - `netlify.toml` and a Netlify "Deploy" one-click button in the README, alongside the existing Vercel button. Netlify uses the official `@netlify/plugin-nextjs` runtime, which supports the Supabase auth-refresh proxy (Node.js Middleware) on Netlify Functions without any source changes.
+- Dedicated `docs/deploy-netlify.md` guide covering Netlify build settings, environment variables, domain updates, external service callbacks, production verification, runtime notes, and troubleshooting.
+- Standalone `CodeQL` and `Package Check` GitHub Actions workflows for the public starter repository, plus README workflow badges.
+- Sentry code-guard README badge and security-policy guidance for the public `babysea-ai/generative-media-starter` repository; no Sentry SDK, DSN, tracing, error-reporting client, or runtime telemetry is bundled.
+- Added `scripts/sentry-project-check.mjs`, a `sentry:check` package script, a README badge, ignored local `.sentryclirc` support, and a scheduled `Sentry Project Check` workflow. The workflow reads Sentry org/project configuration from GitHub Actions secrets, verifies the configured project slug, active status, `other` platform, ownership, and Code Guard rules, and does not add runtime tracking.
 - Google-only Supabase OAuth login with a dedicated `/auth/callback` route for server-side code exchange.
 - Inline Google OAuth icon in the login button.
 
 ### Changed
 
+- Reorder the badge.
+- README status badge and status copy now describe the project as a working OSS starter rather than a reference-only starter.
+- README anchors now keep the OSS Starters badge focused on the starter itself, and the broad OSS taxonomy / primitive cross-promotion block was replaced with starter-specific related resources.
+- Deployment, Supabase, and agent-guide wording now describes OSS starters as working deployable apps and clarifies that publish validation runs before push rather than through mandatory GitHub status checks.
 - OG social image URL switched from `public` folder to `https://cdn.babysea.live/assets/logo/company/card/generative-media-starter.png` for reliable social-crawler resolution.
 - Landing page "Sign in" button now shows only a `LogIn` icon on mobile (`< sm`) and the full "Sign in" label on `sm+`, consistent with the dashboard sign-out button.
 - OG social image now served from the `public` folder (`/generative-media-starter.png`) instead of a raw GitHub URL.
