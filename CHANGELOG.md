@@ -4,7 +4,7 @@ All notable changes to `generative-media-starter` will be documented here. The f
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0), and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.1.0] - 2026-05-08
 
 ### Added
 
@@ -16,38 +16,6 @@ All notable changes to `generative-media-starter` will be documented here. The f
 - Added `scripts/sentry-project-check.mjs`, a `sentry:check` package script, a README badge, ignored local `.sentryclirc` support, and a scheduled `Sentry Project Check` workflow. The workflow reads Sentry org/project configuration from GitHub Actions secrets, verifies the configured project slug, active status, `other` platform, ownership, and Code Guard rules, and does not add runtime tracking.
 - Google-only Supabase OAuth login with a dedicated `/auth/callback` route for server-side code exchange.
 - Inline Google OAuth icon in the login button.
-
-### Changed
-
-- Reorder the badge.
-- README status badge and status copy now describe the project as a working OSS starter rather than a reference-only starter.
-- README anchors now keep the OSS Starters badge focused on the starter itself, and the broad OSS taxonomy / primitive cross-promotion block was replaced with starter-specific related resources.
-- Deployment, Supabase, and agent-guide wording now describes OSS starters as working deployable apps and clarifies that publish validation runs before push rather than through mandatory GitHub status checks.
-- OG social image URL switched from `public` folder to `https://cdn.babysea.live/assets/logo/company/card/generative-media-starter.png` for reliable social-crawler resolution.
-- Landing page "Sign in" button now shows only a `LogIn` icon on mobile (`< sm`) and the full "Sign in" label on `sm+`, consistent with the dashboard sign-out button.
-- OG social image now served from the `public` folder (`/generative-media-starter.png`) instead of a raw GitHub URL.
-- Stats row ("Balance" and "Execution policy") is now a two-column grid on all screen sizes so both pills sit side by side on mobile.
-- Sign-out button shows only a `LogOut` icon on mobile (`< sm`) and the full "Sign out" label on `sm+`.
-- Nav links (Generate, Billing) highlight the active tab with a teal background and border so users can see which page they are on.
-
-- Removed email/password, magic-link, and OTP auth paths from the starter surface. The local Supabase config disables email signup and docs now point to exact Google OAuth callback URLs.
-- Disabled generation submission in the UI when the user has insufficient credits, preventing form submission before any generation server action runs.
-- Disabled Stripe checkout buttons when Stripe secrets are missing, with a demo-safe banner above the credit-ledger message area.
-
-### Security
-
-- Hardened the OAuth callback `next` parameter to allow only same-origin dashboard paths and avoid open redirects.
-
-### Notes
-
-- Cloudflare Workers (`@opennextjs/cloudflare`) was evaluated and intentionally **not** added. The OpenNext Cloudflare adapter does not yet support Next.js Node.js Middleware, which the Supabase auth-refresh `proxy.ts` requires. A Cloudflare deploy target will be revisited once OpenNext supports Node.js Middleware or Supabase ships an edge-runtime SSR proxy helper.
-
-## [0.1.0] - 2026-05-05
-
-Initial public release.
-
-### Added
-
 - Next.js 16 (App Router) reference application with landing, login, and dashboard (Generate + Billing) routes.
 - Supabase Google OAuth authentication with auth-refresh middleware.
 - Four PostgreSQL migrations: starter schema (`credit_balances`, `credit_ledger`, `generations`, `stripe_customers`, `processed_stripe_events`), BabySea API key column, generation-output preservation, and `generated-media` bucket hardening.
@@ -61,6 +29,30 @@ Initial public release.
 - Preflight `pnpm run doctor` validating env, BabySea schema, Stripe Prices, Supabase tables/storage, Upstash REST, and Vercel command alignment without printing secret values.
 - Apache 2.0 license, NOTICE, SECURITY policy, CONTRIBUTING guide, CODE_OF_CONDUCT, and Dependabot configuration.
 - Documentation: `docs/supabase.md`, `docs/stripe.md`, `docs/deploy-vercel.md`, `docs/customization.md`.
+
+### Changed
+
+- Reorder the badge.
+- README status badge and status copy now describe the project as a working OSS starter rather than a reference-only starter.
+- README anchors now keep the OSS Starters badge focused on the starter itself, and the broad OSS taxonomy / primitive cross-promotion block was replaced with starter-specific related resources.
+- Deployment, Supabase, and agent-guide wording now describes OSS starters as working deployable apps and clarifies that publish validation runs before push rather than through mandatory GitHub status checks.
+- OG social image URL switched from `public` folder to `https://cdn.babysea.live/assets/logo/company/card/generative-media-starter.png` for reliable social-crawler resolution.
+- Landing page "Sign in" button now shows only a `LogIn` icon on mobile (`< sm`) and the full "Sign in" label on `sm+`, consistent with the dashboard sign-out button.
+- OG social image now served from the `public` folder (`/generative-media-starter.png`) instead of a raw GitHub URL.
+- Stats row ("Balance" and "Execution policy") is now a two-column grid on all screen sizes so both pills sit side by side on mobile.
+- Sign-out button shows only a `LogOut` icon on mobile (`< sm`) and the full "Sign out" label on `sm+`.
+- Nav links (Generate, Billing) highlight the active tab with a teal background and border so users can see which page they are on.
+- Removed email/password, magic-link, and OTP auth paths from the starter surface. The local Supabase config disables email signup and docs now point to exact Google OAuth callback URLs.
+- Disabled generation submission in the UI when the user has insufficient credits, preventing form submission before any generation server action runs.
+- Disabled Stripe checkout buttons when Stripe secrets are missing, with a demo-safe banner above the credit-ledger message area.
+
+### Security
+
+- Hardened the OAuth callback `next` parameter to allow only same-origin dashboard paths and avoid open redirects.
+
+### Notes
+
+- Cloudflare Workers (`@opennextjs/cloudflare`) was evaluated and intentionally **not** added. The OpenNext Cloudflare adapter does not yet support Next.js Node.js Middleware, which the Supabase auth-refresh `proxy.ts` requires. A Cloudflare deploy target will be revisited once OpenNext supports Node.js Middleware or Supabase ships an edge-runtime SSR proxy helper.
 
 ### Validated
 
