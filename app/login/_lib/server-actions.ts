@@ -21,11 +21,13 @@ export async function signInWithGoogle() {
   });
 
   if (error) {
-    redirect(`/login?error=${encodeURIComponent(error.message)}`);
+    // Avoid forwarding the raw provider error message into a redirect URL so
+    // the login page only renders allowlisted copy (see app/login/page.tsx).
+    redirect('/login?error=oauth_failed');
   }
 
   if (!data.url) {
-    redirect('/login?error=Google%20sign-in%20is%20not%20configured.');
+    redirect('/login?error=oauth_unavailable');
   }
 
   redirect(data.url);

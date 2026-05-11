@@ -10,6 +10,20 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+// Login banners are rendered from query-string codes only. Mapping to fixed
+// copy here prevents an attacker from crafting phishing text via a malicious
+// `/login?error=<copy>` URL and ensures every banner ships translated content.
+const LOGIN_ERROR_COPY: Record<string, string> = {
+  oauth_unavailable: 'Google sign-in is not configured. Contact the operator.',
+  oauth_failed: 'Google sign-in could not start. Try again.',
+  callback_invalid:
+    'Google sign-in callback is invalid or expired. Try signing in again.',
+};
+
+const LOGIN_MESSAGE_COPY: Record<string, string> = {
+  signed_out: 'You have been signed out.',
+};
+
 type LoginPageProps = {
   searchParams?: Promise<{
     error?: string;
@@ -19,6 +33,10 @@ type LoginPageProps = {
 
 export default async function LoginPage({ searchParams }: LoginPageProps) {
   const params = await searchParams;
+  const errorCopy = params?.error ? LOGIN_ERROR_COPY[params.error] : undefined;
+  const messageCopy = params?.message
+    ? LOGIN_MESSAGE_COPY[params.message]
+    : undefined;
 
   return (
     <main className="flex min-h-screen items-center justify-center px-6 py-12">
@@ -36,15 +54,15 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
           </p>
         </div>
 
-        {params?.message ? (
+        {messageCopy ? (
           <div className="mb-4 rounded-2xl border border-teal-300/30 bg-teal-300/10 px-4 py-3 text-sm text-teal-50">
-            {params.message}
+            {messageCopy}
           </div>
         ) : null}
 
-        {params?.error ? (
+        {errorCopy ? (
           <div className="mb-4 rounded-2xl border border-red-400/30 bg-red-500/10 px-4 py-3 text-sm text-red-100">
-            {params.error}
+            {errorCopy}
           </div>
         ) : null}
 

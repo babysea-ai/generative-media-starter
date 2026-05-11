@@ -83,5 +83,11 @@ function normalizeUrl(name: string, value: string, options: UrlEnvOptions) {
 }
 
 function isHostedRuntime() {
-  return process.env.VERCEL === '1' || Boolean(process.env.VERCEL_ENV);
+  return (
+    process.env.NODE_ENV === 'production' ||
+    process.env.VERCEL === '1' ||
+    Boolean(process.env.VERCEL_ENV) ||
+    process.env.NETLIFY === 'true' ||
+    Boolean(process.env.NETLIFY)
+  );
 }

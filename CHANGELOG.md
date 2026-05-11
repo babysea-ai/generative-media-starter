@@ -4,6 +4,20 @@ All notable changes to `generative-media-starter` will be documented here. The f
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0), and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-05-11
+
+### Added
+
+- Extended `pnpm run doctor` with two new checks: a static check that `next.config.ts` declares the baseline security headers and an `async headers()` block, and a live probe that fetches `NEXT_PUBLIC_SITE_URL` and verifies the deployed origin actually serves `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, and `Strict-Transport-Security`. The live probe warns (does not fail) when the site URL is localhost or the origin is unreachable so local doctor runs stay green.
+
+### Security
+
+- Added baseline browser security headers in `next.config.ts` (`X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy` opt-out for camera/microphone/geolocation/browsing-topics, `Strict-Transport-Security` with two-year max-age + preload, and `X-DNS-Prefetch-Control`) so Vercel/Netlify deployments ship with the same hardening defaults as Vercel OSS reference apps.
+- Disabled Next.js `logging.fetches.fullUrl` in production builds so Stripe, Supabase, BabySea, and signed Supabase Storage URLs (which carry tokens in query strings) no longer leak into hosted server logs. Full URLs remain enabled in development for local debugging.
+- Extended the `lib/env.ts` hosted-runtime guard beyond Vercel to also cover `NETLIFY` and `NODE_ENV === 'production'`, preventing `localhost` URLs from passing `NEXT_PUBLIC_SITE_URL` / `NEXT_PUBLIC_SUPABASE_URL` validation on Netlify or any other hosted target.
+- Pinned the Stripe SDK `apiVersion` to `2026-02-25.clover` in `lib/stripe.ts` so webhook payload shapes and Checkout responses stay deterministic across Stripe account API-version upgrades; documented the version-bump pairing rule in source.
+- Hardened the login page banner: `/login?error=...` and `/login?message=...` now render copy from a fixed allowlist (`oauth_unavailable`, `oauth_failed`, `callback_invalid`, `signed_out`) instead of forwarding raw provider error strings, removing a low-severity phishing/UI-spoofing vector via crafted URLs.
+
 ## [0.1.0] - 2026-05-08
 
 ### Added

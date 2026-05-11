@@ -21,10 +21,8 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  loginUrl.searchParams.set(
-    'error',
-    'Google sign-in callback is invalid or expired. Try signing in again.',
-  );
+  // Use an allowlisted error code; the login page maps codes to fixed copy.
+  loginUrl.searchParams.set('error', 'callback_invalid');
 
   return NextResponse.redirect(loginUrl);
 }

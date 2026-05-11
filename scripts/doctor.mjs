@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// @ts-nocheck
 
 import { randomUUID } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
@@ -23,7 +24,6 @@ const BABYSEA_API_HOSTS = new Set([
   'api.jp.babysea.ai',
 ]);
 const LOCAL_HOSTNAMES = new Set(['localhost', '127.0.0.1', '::1']);
-// @ts-ignore
 const results = [];
 const ORIGINAL_ENV_KEYS = new Set(Object.keys(process.env));
 
@@ -80,12 +80,10 @@ await runCheck('Runtime environment variables', () => {
   });
   validateUrlEnv('UPSTASH_REDIS_REST_URL', { optional: true });
 
-  // @ts-ignore
   if (!env('BABYSEA_API_KEY').startsWith('bye_')) {
     throw new Error('BABYSEA_API_KEY must start with bye_');
   }
 
-  // @ts-ignore
   if (!env('STRIPE_WEBHOOK_SECRET').startsWith('whsec_')) {
     throw new Error('STRIPE_WEBHOOK_SECRET must start with whsec_');
   }
@@ -305,9 +303,84 @@ await runCheck('Netlify deployment config', () => {
   return 'Netlify build command, publish directory, and Node version verified';
 });
 
-// @ts-ignore
+await runCheck('Security headers (next.config.ts)', () => {
+  const nextConfig = readRequiredFile('next.config.ts');
+  const required = [
+    'X-Frame-Options',
+    'X-Content-Type-Options',
+    'Referrer-Policy',
+    'Permissions-Policy',
+    'Strict-Transport-Security',
+  ];
+  const missing = required.filter((header) => !nextConfig.includes(header));
+
+  if (missing.length > 0) {
+    throw new Error(
+      `next.config.ts is missing security headers: ${missing.join(', ')}`,
+    );
+  }
+
+  if (!/headers\(\)/.test(nextConfig)) {
+    throw new Error('next.config.ts must declare an async headers() block');
+  }
+
+  return `${required.length} baseline security headers declared`;
+});
+
+await runCheck('Security headers (deployed origin)', async () => {
+  const siteUrl = env('NEXT_PUBLIC_SITE_URL');
+
+  if (!siteUrl) {
+    return warn('NEXT_PUBLIC_SITE_URL not set; skipping live header probe');
+  }
+
+  let url;
+
+  try {
+    url = new URL(siteUrl);
+  } catch {
+    throw new Error('NEXT_PUBLIC_SITE_URL is not a valid URL');
+  }
+
+  if (LOCAL_HOSTNAMES.has(url.hostname.toLowerCase())) {
+    return warn('site URL is localhost; skipping live header probe');
+  }
+
+  let response;
+
+  try {
+    response = await fetch(url.toString(), {
+      method: 'GET',
+      redirect: 'follow',
+      signal: AbortSignal.timeout(10_000),
+    });
+  } catch (error) {
+    return warn(
+      `could not reach ${url.hostname} to probe headers (${error instanceof Error ? error.message : 'unknown'})`,
+    );
+  }
+
+  const requiredHeaders = [
+    'x-frame-options',
+    'x-content-type-options',
+    'referrer-policy',
+    'permissions-policy',
+    'strict-transport-security',
+  ];
+  const missing = requiredHeaders.filter(
+    (header) => !response.headers.get(header),
+  );
+
+  if (missing.length > 0) {
+    throw new Error(
+      `deployed origin is missing headers: ${missing.join(', ')}`,
+    );
+  }
+
+  return `${requiredHeaders.length} security headers served from ${url.hostname}`;
+});
+
 const failed = results.filter((result) => result.status === 'fail');
-// @ts-ignore
 const warned = results.filter((result) => result.status === 'warn');
 
 console.log(
@@ -318,7 +391,6 @@ if (failed.length > 0) {
   process.exitCode = 1;
 }
 
-// @ts-ignore
 function loadEnvFile(fileName, options = {}) {
   const path = resolve(ROOT, fileName);
 
@@ -342,20 +414,16 @@ function loadEnvFile(fileName, options = {}) {
     const [, key, rawValue] = match;
 
     if (
-      // @ts-ignore
       ORIGINAL_ENV_KEYS.has(key) ||
-      // @ts-ignore
       (process.env[key] !== undefined && !options.override)
     ) {
       continue;
     }
 
-    // @ts-ignore
     process.env[key] = stripQuotes(rawValue.trim());
   }
 }
 
-// @ts-ignore
 function stripQuotes(value) {
   if (
     (value.startsWith('"') && value.endsWith('"')) ||
@@ -367,7 +435,6 @@ function stripQuotes(value) {
   return value;
 }
 
-// @ts-ignore
 async function runCheck(title, check) {
   try {
     const details = await check();
@@ -382,12 +449,10 @@ async function runCheck(title, check) {
   }
 }
 
-// @ts-ignore
 function warn(message) {
   return { status: 'warn', message };
 }
 
-// @ts-ignore
 function record(status, title, details) {
   results.push({ status, title, details });
 
@@ -397,14 +462,12 @@ function record(status, title, details) {
   console.log(`${icon} ${title}${suffix}`);
 }
 
-// @ts-ignore
 function env(name) {
   const value = process.env[name]?.trim();
 
   return value && value.length > 0 ? value : undefined;
 }
 
-// @ts-ignore
 function requiredEnv(name) {
   const value = env(name);
 
@@ -415,12 +478,10 @@ function requiredEnv(name) {
   return value;
 }
 
-// @ts-ignore
 function validateUrlEnv(name, options = {}) {
   const value = env(name);
 
   if (!value) {
-    // @ts-ignore
     if (options.optional) {
       return undefined;
     }
@@ -446,15 +507,12 @@ function validateUrlEnv(name, options = {}) {
     throw new Error(`${name} cannot use localhost in production`);
   }
 
-  // @ts-ignore
   if (url.protocol !== 'https:' && !(options.allowLocalhost && isLocalhost)) {
     throw new Error(`${name} must use HTTPS outside local development`);
   }
 
   if (
-    // @ts-ignore
     options.allowedHosts &&
-    // @ts-ignore
     !options.allowedHosts.has(url.hostname.toLowerCase())
   ) {
     throw new Error(`${name} host is not allowed`);
@@ -491,7 +549,6 @@ function isProductionRuntime() {
   );
 }
 
-// @ts-ignore
 async function assertPublicMutationsBlocked(admin, publicClient) {
   const generationId = randomUUID();
   const userId = randomUUID();
@@ -505,7 +562,6 @@ async function assertPublicMutationsBlocked(admin, publicClient) {
       user_id: userId,
       credits: 1,
     },
-    // @ts-ignore
     cleanup: (client) =>
       client.from('credit_balances').delete().eq('user_id', userId),
   });
@@ -521,7 +577,6 @@ async function assertPublicMutationsBlocked(admin, publicClient) {
       status: 'queued',
       cost_credits: 0.005,
     },
-    // @ts-ignore
     cleanup: (client) =>
       client.from('generations').delete().eq('id', generationId),
   });
@@ -535,7 +590,6 @@ async function assertPublicMutationsBlocked(admin, publicClient) {
       stripe_event_id: ledgerEventId,
       description: 'doctor mutation probe',
     },
-    // @ts-ignore
     cleanup: (client) =>
       client
         .from('credit_ledger')
@@ -549,7 +603,6 @@ async function assertPublicMutationsBlocked(admin, publicClient) {
       user_id: userId,
       stripe_customer_id: `cus_doctor_${randomUUID().replaceAll('-', '')}`,
     },
-    // @ts-ignore
     cleanup: (client) =>
       client.from('stripe_customers').delete().eq('user_id', userId),
   });
@@ -560,7 +613,6 @@ async function assertPublicMutationsBlocked(admin, publicClient) {
       id: processedEventId,
       type: 'doctor.probe',
     },
-    // @ts-ignore
     cleanup: (client) =>
       client
         .from('processed_stripe_events')
@@ -597,7 +649,6 @@ async function assertPublicMutationsBlocked(admin, publicClient) {
   }
 }
 
-// @ts-ignore
 async function expectInsertBlocked(admin, publicClient, probe) {
   const { error } = await publicClient.from(probe.table).insert(probe.values);
 
@@ -608,7 +659,6 @@ async function expectInsertBlocked(admin, publicClient, probe) {
   }
 }
 
-// @ts-ignore
 async function expectRpcBlocked(publicClient, functionName, args) {
   const { error } = await publicClient.rpc(functionName, args);
 
@@ -617,7 +667,6 @@ async function expectRpcBlocked(publicClient, functionName, args) {
   }
 }
 
-// @ts-ignore
 async function findPriceByLookupKey(stripe, lookupKey) {
   const prices = await stripe.prices.list({
     active: true,
@@ -625,7 +674,6 @@ async function findPriceByLookupKey(stripe, lookupKey) {
     lookup_keys: [lookupKey],
   });
   const price = prices.data.find(
-    // @ts-ignore
     (candidate) => candidate.lookup_key === lookupKey,
   );
 
@@ -636,7 +684,6 @@ async function findPriceByLookupKey(stripe, lookupKey) {
   return price;
 }
 
-// @ts-ignore
 function assertStripePriceMatchesPack(price, pack) {
   if (!price.active) {
     throw new Error(`Stripe price for ${pack.id} is not active`);
@@ -657,7 +704,6 @@ function assertStripePriceMatchesPack(price, pack) {
   }
 }
 
-// @ts-ignore
 function formatCurrencyCredits(value) {
   return new Intl.NumberFormat('en-US', {
     currency: 'USD',
@@ -689,7 +735,6 @@ function readStarterConfig() {
   return { babySeaModel, outputNumber, creditPacks };
 }
 
-// @ts-ignore
 function readStringConst(source, name) {
   const match = source.match(new RegExp(`export const ${name} = '([^']+)';`));
 
@@ -704,7 +749,6 @@ function packRegex() {
   return /\{\s*id: '([^']+)',\s*name: '([^']+)',\s*credits: ([0-9.]+),\s*amountCents: (\d+),\s*stripeLookupKey: '([^']+)',\s*stripePriceEnvKey: '([^']+)',/g;
 }
 
-// @ts-ignore
 function readRequiredFile(fileName) {
   const path = resolve(ROOT, fileName);
 
@@ -715,14 +759,12 @@ function readRequiredFile(fileName) {
   return readFileSync(path, 'utf8');
 }
 
-// @ts-ignore
 function readOptionalFile(fileName) {
   const path = resolve(ROOT, fileName);
 
   return existsSync(path) ? readFileSync(path, 'utf8') : '';
 }
 
-// @ts-ignore
 function sanitizeError(error) {
   const message = error instanceof Error ? error.message : String(error);
   const secretValues = [
@@ -738,7 +780,6 @@ function sanitizeError(error) {
 
   return secretValues.reduce(
     (sanitized, secret) =>
-      // @ts-ignore
       sanitized.replaceAll(secret, `${secret.slice(0, 4)}...[redacted]`),
     message,
   );
