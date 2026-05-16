@@ -1,6 +1,6 @@
 {
   "name": "generative-media-starter",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Launch a credit-based generative media app. Built with Next.js, Stripe, Supabase, Upstash, and the BabySea SDK.",
   "private": true,
   "license": "Apache-2.0",
@@ -52,14 +52,16 @@
     "@supabase/supabase-js": "2.97.0",
     "@upstash/ratelimit": "2.0.8",
     "@upstash/redis": "1.36.2",
-    "babysea": "1.4.3",
+    "babysea": "1.4.4",
     "clsx": "^2.1.1",
+    "ignore": "^7.0.5",
     "lucide-react": "0.575.0",
     "next": "16.2.4",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "stripe": "20.4.0",
     "tailwind-merge": "^3.5.0",
+    "workspace": "0.0.1-preview.2",
     "zod": "3.25.76"
   },
   "devDependencies": {

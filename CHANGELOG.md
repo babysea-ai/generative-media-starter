@@ -4,6 +4,12 @@ All notable changes to `generative-media-starter` will be documented here. The f
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0), and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] - 2026-05-16
+
+### Changed
+
+- Updated the BabySea SDK dependency to `babysea@1.4.4`, including the SDK's hardened API error parsing for malformed or non-standard error envelopes.
+
 ## [0.2.0] - 2026-05-11
 
 ### Added

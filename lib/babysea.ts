@@ -153,15 +153,16 @@ export async function runBabySeaGeneration(input: {
     interval: POLL_INTERVAL_MS,
   });
   const generation = response.data;
-  const remoteUrl = firstOutputUrl(generation.generation_output_file);
+  const outputFile = generation.generation_output_file ?? null;
+  const remoteUrl = firstOutputUrl(outputFile);
 
   return {
     generationId: generation.generation_id,
-    modelIdentifier: generation.model_identifier,
-    providerOrder: generation.generation_provider_order,
-    providerUsed: generation.generation_provider_used,
+    modelIdentifier: generation.model_identifier ?? BABYSEA_MODEL,
+    providerOrder: generation.generation_provider_order ?? [],
+    providerUsed: generation.generation_provider_used ?? null,
     status: generation.generation_status,
-    outputFile: generation.generation_output_file,
+    outputFile,
     remoteUrl,
   };
 }

@@ -21,11 +21,14 @@ importers:
         specifier: 1.36.2
         version: 1.36.2
       babysea:
-        specifier: 1.4.3
-        version: 1.4.3
+        specifier: 1.4.4
+        version: 1.4.4
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      ignore:
+        specifier: ^7.0.5
+        version: 7.0.5
       lucide-react:
         specifier: 0.575.0
         version: 0.575.0(react@19.2.4)
@@ -44,6 +47,9 @@ importers:
       tailwind-merge:
         specifier: ^3.5.0
         version: 3.5.0
+      workspace:
+        specifier: 0.0.1-preview.2
+        version: 0.0.1-preview.2
       zod:
         specifier: 3.25.76
         version: 3.25.76
@@ -461,8 +467,8 @@ packages:
   babel-plugin-react-compiler@1.0.0:
     resolution: {integrity: sha512-Ixm8tFfoKKIPYdCCKYTsqv+Fd4IJ0DQqMyEimo+pxUOMUR9cVPlwTrFt9Avu+3cb6Zp3mAzl+t1MrG2fxxKsxw==}
 
-  babysea@1.4.3:
-    resolution: {integrity: sha512-No/tlp1JNvlIGppMUUjn0j1JDts7M+GVDjyuYocxwfRqApeRXM3Hp1C01rb41LFkx1A5n6me9hB7ElUdMtbs+w==}
+  babysea@1.4.4:
+    resolution: {integrity: sha512-maX6OOi3FSL/0HHdZsnvCyNHdIdxbhf9ah0RQsiTvavhS07R/cwwOaXWrkMFwlt9b6ksLsLkhR7LHd5O2+26BA==}
     engines: {node: '>=18'}
 
   baseline-browser-mapping@2.10.27:
@@ -538,6 +544,10 @@ packages:
   iceberg-js@0.8.1:
     resolution: {integrity: sha512-1dhVQZXhcHje7798IVM+xoo/1ZdVfzOMIc8/rgVSijRK38EDqOJoGula9N/8ZI5RD8QTxNQtK/Gozpr+qUqRRA==}
     engines: {node: '>=20.0.0'}
+
+  ignore@7.0.5:
+    resolution: {integrity: sha512-Hs59xBNfUIunMFgWAbGX5cq6893IbWg4KnrjbYwX3tx0ztorVgTDA6B2sxf8ejHJ4wz8BqGUMYlnzNBer5NvGg==}
+    engines: {node: '>= 4'}
 
   jiti@2.6.1:
     resolution: {integrity: sha512-ekilCSN1jwRvIbgeg/57YFh8qQDNbwDb9xT/qu2DAHbFFZUicIl4ygVaAvzveMhMVr3LnpSKTNnwt8PoOfmKhQ==}
@@ -782,6 +792,9 @@ packages:
   web-streams-polyfill@3.3.3:
     resolution: {integrity: sha512-d2JWLCivmZYTSIoge9MsgFCZrt571BikcWGYkjC1khllbTeDlGqZ2D8vD8E/lJa8WGWbb7Plm8/XJYV7IJHZZw==}
     engines: {node: '>= 8'}
+
+  workspace@0.0.1-preview.2:
+    resolution: {integrity: sha512-UwDfYOgc0XET22pr/nlU0l02/8bG7xDW55EKKj+gp6fM2+23GdVVsGV0mMtMCAzJ/H9G3POdiJ5Ny2tyGZVefQ==}
 
   write-file-atomic@7.0.1:
     resolution: {integrity: sha512-OTIk8iR8/aCRWBqvxrzxR0hgxWpnYBblY1S5hDWBQfk/VFmJwzmJgQFN3WsoUKHISv2eAwe+PpbUzyL1CKTLXg==}
@@ -1123,7 +1136,7 @@ snapshots:
     dependencies:
       '@babel/types': 7.29.0
 
-  babysea@1.4.3: {}
+  babysea@1.4.4: {}
 
   baseline-browser-mapping@2.10.27: {}
 
@@ -1181,6 +1194,8 @@ snapshots:
       - supports-color
 
   iceberg-js@0.8.1: {}
+
+  ignore@7.0.5: {}
 
   jiti@2.6.1: {}
 
@@ -1395,6 +1410,8 @@ snapshots:
   undici-types@7.18.2: {}
 
   web-streams-polyfill@3.3.3: {}
+
+  workspace@0.0.1-preview.2: {}
 
   write-file-atomic@7.0.1:
     dependencies:
