@@ -2,7 +2,7 @@
 
 # 🐧 generative-media-starter
 
-**Launch a credit-based generative media app. Built with Next.js, Stripe, Supabase, Upstash, and the BabySea SDK.**
+**Credit-based generative media app. Built with Next.js, Stripe, Supabase, Upstash, and the BabySea SDK.**
 
 <br/>
 
@@ -27,7 +27,7 @@
 [![Next.js](https://img.shields.io/badge/app-Next.js-000000.svg?logo=nextdotjs&logoColor=white)](https://nextjs.org)
 [![React](https://img.shields.io/badge/ui-React-61DAFB.svg?logo=react&logoColor=111827)](https://react.dev)
 [![Stripe](https://img.shields.io/badge/billing-Stripe-635BFF.svg?logo=stripe&logoColor=white)](https://stripe.com)
-[![Supabase](https://img.shields.io/badge/auth%20%2B%20data-Supabase-3ECF8E.svg)](https://supabase.com)
+[![Supabase](https://img.shields.io/badge/database%20%2B%20auth-Supabase-3ECF8E.svg)](https://supabase.com)
 [![Upstash](https://img.shields.io/badge/rate%20limit-Upstash-00E9A3.svg)](https://upstash.com)
 
 <br/>

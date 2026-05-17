@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
-
 import '@/styles/globals.css';
 
 const title = 'Generative Media Starter';
 const description =
-  'Launch a credit-based generative media app. Built with Next.js, Stripe, Supabase, Upstash, and the BabySea SDK.';
+  'Credit-based generative media app. Built with Next.js, Stripe, Supabase, Upstash, and the BabySea SDK.';
 const socialImageUrl =
   'https://cdn.babysea.live/assets/logo/company/card/generative-media-starter.png';
 

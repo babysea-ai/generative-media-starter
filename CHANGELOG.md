@@ -4,6 +4,16 @@ All notable changes to `generative-media-starter` will be documented here. The f
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0), and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.2] - 2026-05-17
+
+### Security
+
+- Hardened `scripts/sentry-project-check.mjs` with normalized config parsing, HTTPS-only Sentry URL validation except localhost, bounded retry handling, strict Sentry API response-shape checks, stronger secret redaction, and stackless failure output. No runtime Sentry SDK, DSN, or telemetry is added.
+
+### Changed
+
+- Bumped the starter package from `0.2.1` to `0.2.2`.
+
 ## [0.2.1] - 2026-05-16
 
 ### Changed
