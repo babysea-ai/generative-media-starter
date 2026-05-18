@@ -4,6 +4,19 @@ All notable changes to `generative-media-starter` will be documented here. The f
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0), and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.3] - 2026-05-19
+
+### Changed
+
+- Added a local `pnpm-workspace.yaml` catalog and switched package dependency specifiers to `catalog:` so standalone installs match the Sherin starter pattern.
+- Updated Vercel and Netlify deployment configuration to use the starter's actual BabySea, Stripe, Supabase, and Upstash environment variables instead of Sherin-specific variables.
+- Aligned deployment docs, doctor checks, and GitHub package validation with the local pnpm workspace install flow.
+
+### Fixed
+
+- Excluded generated Supabase types from Prettier formatting.
+- Corrected the customization guide path for generation server-action validation.
+
 ## [0.2.2] - 2026-05-17
 
 ### Security

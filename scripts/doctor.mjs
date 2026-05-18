@@ -37,24 +37,52 @@ console.log('Generative Media Starter doctor\n');
 await runCheck('Standalone pnpm configuration', () => {
   const npmrc = readOptionalFile('.npmrc');
   const packageJson = JSON.parse(readRequiredFile('package.json'));
+  const workspace = readRequiredFile('pnpm-workspace.yaml');
 
-  if (!npmrc.includes('ignore-workspace=true')) {
-    throw new Error('.npmrc must set ignore-workspace=true');
+  if (!npmrc.includes('ignore-workspace=false')) {
+    throw new Error('.npmrc must set ignore-workspace=false');
   }
 
-  const onlyBuiltDependencies = new Set(
-    packageJson.pnpm?.onlyBuiltDependencies ?? [],
-  );
+  if (!workspace.includes('packages:') || !workspace.includes('  - .')) {
+    throw new Error(
+      'pnpm-workspace.yaml must declare this package as the workspace',
+    );
+  }
+
+  if (!workspace.includes('catalog:')) {
+    throw new Error('pnpm-workspace.yaml must define a dependency catalog');
+  }
+
+  for (const dependency of ['next', 'react', 'babysea', 'stripe', 'supabase']) {
+    if (!workspace.includes(`  ${dependency}:`)) {
+      throw new Error(`pnpm-workspace.yaml catalog must include ${dependency}`);
+    }
+  }
+
+  for (const [sectionName, section] of Object.entries({
+    dependencies: packageJson.dependencies ?? {},
+    devDependencies: packageJson.devDependencies ?? {},
+  })) {
+    for (const [name, specifier] of Object.entries(section)) {
+      if (specifier !== 'catalog:') {
+        throw new Error(`${sectionName}.${name} must use catalog:`);
+      }
+    }
+  }
 
   for (const dependency of ['@tailwindcss/oxide', 'supabase']) {
-    if (!onlyBuiltDependencies.has(dependency)) {
+    if (
+      !workspace.includes(`  - ${dependency}`) &&
+      !workspace.includes(`  - '${dependency}'`) &&
+      !workspace.includes(`  - "${dependency}"`)
+    ) {
       throw new Error(
-        `package.json pnpm.onlyBuiltDependencies must include ${dependency}`,
+        `pnpm-workspace.yaml onlyBuiltDependencies must include ${dependency}`,
       );
     }
   }
 
-  return 'parent monorepos and pnpm build-script approvals are configured';
+  return 'local pnpm workspace, catalog, and build-script approvals are configured';
 });
 
 await runCheck('Runtime environment variables', () => {
@@ -263,12 +291,9 @@ await runCheck('Vercel deployment config', () => {
     throw new Error('vercel.json devCommand must be pnpm dev');
   }
 
-  if (
-    vercel.installCommand !==
-    'pnpm install --frozen-lockfile --ignore-workspace'
-  ) {
+  if (vercel.installCommand !== 'pnpm install --frozen-lockfile') {
     throw new Error(
-      'vercel.json installCommand must be pnpm install --frozen-lockfile --ignore-workspace',
+      'vercel.json installCommand must be pnpm install --frozen-lockfile',
     );
   }
 
@@ -282,14 +307,8 @@ await runCheck('Netlify deployment config', () => {
     throw new Error('netlify.toml must include a [build] section');
   }
 
-  if (
-    !netlify.includes(
-      'command = "pnpm install --frozen-lockfile --ignore-workspace && pnpm build"',
-    )
-  ) {
-    throw new Error(
-      'netlify.toml build command must install with --ignore-workspace and run pnpm build',
-    );
+  if (!netlify.includes('command = "pnpm build"')) {
+    throw new Error('netlify.toml build command must run pnpm build');
   }
 
   if (!netlify.includes('publish = ".next"')) {
@@ -298,6 +317,22 @@ await runCheck('Netlify deployment config', () => {
 
   if (!netlify.includes('NODE_VERSION = "20"')) {
     throw new Error('netlify.toml must pin NODE_VERSION = "20"');
+  }
+
+  for (const name of [
+    'NEXT_PUBLIC_SITE_URL',
+    'BABYSEA_API_KEY',
+    'STRIPE_SECRET_KEY',
+    'STRIPE_WEBHOOK_SECRET',
+    'NEXT_PUBLIC_SUPABASE_URL',
+    'NEXT_PUBLIC_SUPABASE_PUBLIC_KEY',
+    'SUPABASE_SECRET_KEY',
+    'UPSTASH_REDIS_REST_URL',
+    'UPSTASH_REDIS_REST_TOKEN',
+  ]) {
+    if (!netlify.includes(`${name} =`)) {
+      throw new Error(`netlify.toml template environment must include ${name}`);
+    }
   }
 
   return 'Netlify build command, publish directory, and Node version verified';

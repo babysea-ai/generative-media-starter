@@ -1,6 +1,6 @@
 {
   "name": "generative-media-starter",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Credit-based generative media app. Built with Next.js, Stripe, Supabase, Upstash, and the BabySea SDK.",
   "private": true,
   "license": "Apache-2.0",
@@ -48,39 +48,31 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@supabase/ssr": "^0.8.0",
-    "@supabase/supabase-js": "2.97.0",
-    "@upstash/ratelimit": "2.0.8",
-    "@upstash/redis": "1.36.2",
-    "babysea": "1.4.4",
-    "clsx": "^2.1.1",
-    "ignore": "^7.0.5",
-    "lucide-react": "0.575.0",
-    "next": "16.2.4",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "stripe": "20.4.0",
-    "tailwind-merge": "^3.5.0",
-    "workspace": "0.0.1-preview.2",
-    "zod": "3.25.76"
+    "@supabase/ssr": "catalog:",
+    "@supabase/supabase-js": "catalog:",
+    "@upstash/ratelimit": "catalog:",
+    "@upstash/redis": "catalog:",
+    "babysea": "catalog:",
+    "clsx": "catalog:",
+    "ignore": "catalog:",
+    "lucide-react": "catalog:",
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "stripe": "catalog:",
+    "tailwind-merge": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.2.1",
-    "@types/node": "25.3.1",
-    "@types/react": "19.2.14",
-    "@types/react-dom": "19.2.3",
-    "babel-plugin-react-compiler": "1.0.0",
-    "prettier": "^3.8.1",
-    "supabase": "2.76.15",
-    "tailwindcss": "^4.2.1",
-    "typescript": "^5.9.3"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@tailwindcss/oxide",
-      "sharp",
-      "supabase"
-    ]
+    "@tailwindcss/postcss": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "babel-plugin-react-compiler": "catalog:",
+    "prettier": "catalog:",
+    "supabase": "catalog:",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:"
   },
   "packageManager": "pnpm@10.19.0"
 }

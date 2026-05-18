@@ -7,17 +7,17 @@ URL that works with Supabase Auth, Stripe Checkout, and BabySea generation.
 
 Use the button in the main README, or create a project manually in Vercel.
 
-| Vercel setting      | Value                                               |
-| ------------------- | --------------------------------------------------- |
-| Framework Preset    | Next.js                                             |
-| Root Directory      | Empty for a standalone repo                         |
-| Install Command     | `pnpm install --frozen-lockfile --ignore-workspace` |
-| Build Command       | `pnpm build`                                        |
-| Development Command | `pnpm dev`                                          |
+| Vercel setting      | Value                            |
+| ------------------- | -------------------------------- |
+| Framework Preset    | Next.js                          |
+| Root Directory      | Empty for a standalone repo      |
+| Install Command     | `pnpm install --frozen-lockfile` |
+| Build Command       | `pnpm build`                     |
+| Development Command | `pnpm dev`                       |
 
 If you vendor this starter inside a monorepo, set Root Directory to the folder
-that contains this README. The install command explicitly ignores parent
-workspaces so Vercel installs this starter from its own lockfile.
+that contains this README. The checked-in `pnpm-workspace.yaml` keeps catalog
+dependencies local to the starter.
 
 ## 2. Add environment variables
 
@@ -117,11 +117,11 @@ After deployment:
 
 ## Troubleshooting
 
-| Symptom                                | Check                                                                                         |
-| -------------------------------------- | --------------------------------------------------------------------------------------------- |
-| Checkout returns to the wrong URL      | `NEXT_PUBLIC_SITE_URL` in Vercel, then redeploy.                                              |
-| Stripe webhook is not granting credits | Webhook URL, event type, signing secret, and Vercel logs.                                     |
-| Supabase links redirect incorrectly    | Auth Site URL and redirect URL allow-list.                                                    |
-| Generation button is disabled          | `BABYSEA_API_KEY` exists and starts with `bye_`.                                              |
-| Preflight fails for storage MIME types | Apply migrations, then verify the `generated-media` bucket only allows PNG/JPEG/WebP/GIF/MP4. |
-| Build warns about workspace root       | Harmless in this monorepo because multiple lockfiles exist; standalone copies do not show it. |
+| Symptom                                | Check                                                                                           |
+| -------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Checkout returns to the wrong URL      | `NEXT_PUBLIC_SITE_URL` in Vercel, then redeploy.                                                |
+| Stripe webhook is not granting credits | Webhook URL, event type, signing secret, and Vercel logs.                                       |
+| Supabase links redirect incorrectly    | Auth Site URL and redirect URL allow-list.                                                      |
+| Generation button is disabled          | `BABYSEA_API_KEY` exists and starts with `bye_`.                                                |
+| Preflight fails for storage MIME types | Apply migrations, then verify the `generated-media` bucket only allows PNG/JPEG/WebP/GIF/MP4.   |
+| Build cannot resolve `catalog:` deps   | Confirm Vercel Root Directory points at the starter folder that contains `pnpm-workspace.yaml`. |

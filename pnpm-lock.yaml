@@ -4,82 +4,151 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@supabase/ssr':
+      specifier: 0.8.0
+      version: 0.8.0
+    '@supabase/supabase-js':
+      specifier: 2.97.0
+      version: 2.97.0
+    '@tailwindcss/postcss':
+      specifier: 4.2.4
+      version: 4.2.4
+    '@types/node':
+      specifier: 25.3.1
+      version: 25.3.1
+    '@types/react':
+      specifier: 19.2.14
+      version: 19.2.14
+    '@types/react-dom':
+      specifier: 19.2.3
+      version: 19.2.3
+    '@upstash/ratelimit':
+      specifier: 2.0.8
+      version: 2.0.8
+    '@upstash/redis':
+      specifier: 1.36.2
+      version: 1.36.2
+    babel-plugin-react-compiler:
+      specifier: 1.0.0
+      version: 1.0.0
+    babysea:
+      specifier: 1.4.4
+      version: 1.4.4
+    clsx:
+      specifier: 2.1.1
+      version: 2.1.1
+    ignore:
+      specifier: 7.0.5
+      version: 7.0.5
+    lucide-react:
+      specifier: 0.575.0
+      version: 0.575.0
+    next:
+      specifier: 16.2.4
+      version: 16.2.4
+    prettier:
+      specifier: 3.8.3
+      version: 3.8.3
+    react:
+      specifier: 19.2.4
+      version: 19.2.4
+    react-dom:
+      specifier: 19.2.4
+      version: 19.2.4
+    stripe:
+      specifier: 20.4.0
+      version: 20.4.0
+    supabase:
+      specifier: 2.76.15
+      version: 2.76.15
+    tailwind-merge:
+      specifier: 3.5.0
+      version: 3.5.0
+    tailwindcss:
+      specifier: 4.2.4
+      version: 4.2.4
+    typescript:
+      specifier: 5.9.3
+      version: 5.9.3
+    zod:
+      specifier: 3.25.76
+      version: 3.25.76
+
 importers:
 
   .:
     dependencies:
       '@supabase/ssr':
-        specifier: ^0.8.0
+        specifier: 'catalog:'
         version: 0.8.0(@supabase/supabase-js@2.97.0)
       '@supabase/supabase-js':
-        specifier: 2.97.0
+        specifier: 'catalog:'
         version: 2.97.0
       '@upstash/ratelimit':
-        specifier: 2.0.8
+        specifier: 'catalog:'
         version: 2.0.8(@upstash/redis@1.36.2)
       '@upstash/redis':
-        specifier: 1.36.2
+        specifier: 'catalog:'
         version: 1.36.2
       babysea:
-        specifier: 1.4.4
+        specifier: 'catalog:'
         version: 1.4.4
       clsx:
-        specifier: ^2.1.1
+        specifier: 'catalog:'
         version: 2.1.1
       ignore:
-        specifier: ^7.0.5
+        specifier: 'catalog:'
         version: 7.0.5
       lucide-react:
-        specifier: 0.575.0
+        specifier: 'catalog:'
         version: 0.575.0(react@19.2.4)
       next:
-        specifier: 16.2.4
+        specifier: 'catalog:'
         version: 16.2.4(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react:
-        specifier: 19.2.4
+        specifier: 'catalog:'
         version: 19.2.4
       react-dom:
-        specifier: 19.2.4
+        specifier: 'catalog:'
         version: 19.2.4(react@19.2.4)
       stripe:
-        specifier: 20.4.0
+        specifier: 'catalog:'
         version: 20.4.0(@types/node@25.3.1)
       tailwind-merge:
-        specifier: ^3.5.0
+        specifier: 'catalog:'
         version: 3.5.0
-      workspace:
-        specifier: 0.0.1-preview.2
-        version: 0.0.1-preview.2
       zod:
-        specifier: 3.25.76
+        specifier: 'catalog:'
         version: 3.25.76
     devDependencies:
       '@tailwindcss/postcss':
-        specifier: ^4.2.1
+        specifier: 'catalog:'
         version: 4.2.4
       '@types/node':
-        specifier: 25.3.1
+        specifier: 'catalog:'
         version: 25.3.1
       '@types/react':
-        specifier: 19.2.14
+        specifier: 'catalog:'
         version: 19.2.14
       '@types/react-dom':
-        specifier: 19.2.3
+        specifier: 'catalog:'
         version: 19.2.3(@types/react@19.2.14)
       babel-plugin-react-compiler:
-        specifier: 1.0.0
+        specifier: 'catalog:'
         version: 1.0.0
       prettier:
-        specifier: ^3.8.1
+        specifier: 'catalog:'
         version: 3.8.3
       supabase:
-        specifier: 2.76.15
+        specifier: 'catalog:'
         version: 2.76.15
       tailwindcss:
-        specifier: ^4.2.1
+        specifier: 'catalog:'
         version: 4.2.4
       typescript:
-        specifier: ^5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
 packages:
@@ -793,9 +862,6 @@ packages:
     resolution: {integrity: sha512-d2JWLCivmZYTSIoge9MsgFCZrt571BikcWGYkjC1khllbTeDlGqZ2D8vD8E/lJa8WGWbb7Plm8/XJYV7IJHZZw==}
     engines: {node: '>= 8'}
 
-  workspace@0.0.1-preview.2:
-    resolution: {integrity: sha512-UwDfYOgc0XET22pr/nlU0l02/8bG7xDW55EKKj+gp6fM2+23GdVVsGV0mMtMCAzJ/H9G3POdiJ5Ny2tyGZVefQ==}
-
   write-file-atomic@7.0.1:
     resolution: {integrity: sha512-OTIk8iR8/aCRWBqvxrzxR0hgxWpnYBblY1S5hDWBQfk/VFmJwzmJgQFN3WsoUKHISv2eAwe+PpbUzyL1CKTLXg==}
     engines: {node: ^20.17.0 || >=22.9.0}
@@ -1410,8 +1476,6 @@ snapshots:
   undici-types@7.18.2: {}
 
   web-streams-polyfill@3.3.3: {}
-
-  workspace@0.0.1-preview.2: {}
 
   write-file-atomic@7.0.1:
     dependencies:

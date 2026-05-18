@@ -50,7 +50,7 @@ If an override is missing, that pack falls back to lookup-key resolution.
 
 ## 3. Configure app secrets
 
-Set these locally and in Vercel:
+Set these locally and in your hosting provider:
 
 ```bash
 STRIPE_SECRET_KEY=sk_...
@@ -118,6 +118,6 @@ test Checkout.
 | ------------------------------------ | ---------------------------------------------------------------------------------- |
 | Checkout cannot find a price         | Confirm every lookup key has one active Price in the same mode.                    |
 | Direct Price override fails          | Confirm the `STRIPE_PRICE_*` ID is active, one-time, USD, and the expected amount. |
-| Credits do not appear after Checkout | Check webhook delivery, signing secret, and Vercel function logs.                  |
+| Credits do not appear after Checkout | Check webhook delivery, signing secret, and hosted function logs.                  |
 | Webhook signature verification fails | Use the exact `whsec_...` for that endpoint/environment.                           |
 | Checkout redirects to an old domain  | Update `NEXT_PUBLIC_SITE_URL` and redeploy.                                        |

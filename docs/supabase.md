@@ -5,7 +5,7 @@ storage for generated media.
 
 ## 1. Create a project
 
-Create a Supabase project and copy these values into `.env.local` and Vercel:
+Create a Supabase project and copy these values into `.env.local` and your hosting provider:
 
 | Supabase dashboard value | Env var                           | Scope          |
 | ------------------------ | --------------------------------- | -------------- |
@@ -29,11 +29,10 @@ pnpm supabase:push
 pnpm supabase:typegen
 ```
 
-If this starter is inside a larger pnpm monorepo, its `.npmrc` keeps the install
-standalone. If your package manager still detects the parent workspace, run
-`pnpm install --ignore-workspace` from this directory once. The starter allows
-the Supabase CLI postinstall build through `pnpm.onlyBuiltDependencies` so the
-local `pnpm supabase` binary is available after install.
+If this starter is inside a larger pnpm monorepo, run install commands from the
+starter directory. Its local `pnpm-workspace.yaml` keeps catalog dependencies
+and build-script approvals scoped to the starter so the local `pnpm supabase`
+binary is available after install.
 
 The migrations create:
 
@@ -112,7 +111,7 @@ client components or browser code.
 | Symptom                          | Fix                                                                                   |
 | -------------------------------- | ------------------------------------------------------------------------------------- |
 | `supabase:link` cannot find ref  | Export `SUPABASE_PROJECT_REF` before running the script.                              |
-| Auth redirects to localhost      | Update Auth Site URL and Vercel `NEXT_PUBLIC_SITE_URL`.                               |
+| Auth redirects to localhost      | Update Auth Site URL and the deployed `NEXT_PUBLIC_SITE_URL`.                         |
 | Credits do not update            | Verify Stripe webhook delivery and `STRIPE_WEBHOOK_SECRET`.                           |
 | Assets do not display            | Confirm migrations created the private storage bucket.                                |
 | Doctor reports unsafe MIME types | Apply the latest migrations or update the bucket to allow only PNG/JPEG/WebP/GIF/MP4. |

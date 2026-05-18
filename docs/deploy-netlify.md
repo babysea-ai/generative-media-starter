@@ -11,17 +11,17 @@ GitHub repository.
 
 The checked-in `netlify.toml` is the source of truth for the build:
 
-| Netlify setting   | Value                                                             |
-| ----------------- | ----------------------------------------------------------------- |
-| Framework         | Next.js                                                           |
-| Base directory    | Empty for a standalone repo                                       |
-| Build command     | `pnpm install --frozen-lockfile --ignore-workspace && pnpm build` |
-| Publish directory | `.next`                                                           |
-| Node version      | `20`                                                              |
+| Netlify setting   | Value                       |
+| ----------------- | --------------------------- |
+| Framework         | Next.js                     |
+| Base directory    | Empty for a standalone repo |
+| Build command     | `pnpm build`                |
+| Publish directory | `.next`                     |
+| Node version      | `20`                        |
 
 If you vendor this starter inside a monorepo, set the Base directory to the
-folder that contains this README. The build command explicitly ignores parent
-workspaces so Netlify installs this starter from its own lockfile.
+folder that contains this README. The checked-in `pnpm-workspace.yaml` keeps
+catalog dependencies local to the starter.
 
 Netlify's official Next.js runtime handles App Router rendering, Route Handlers,
 and the Supabase auth-refresh proxy through Netlify Functions. No edge-runtime
@@ -130,11 +130,11 @@ After deployment:
 
 ## Troubleshooting
 
-| Symptom                                | Check                                                                                         |
-| -------------------------------------- | --------------------------------------------------------------------------------------------- |
-| Checkout returns to the wrong URL      | `NEXT_PUBLIC_SITE_URL` in Netlify, then redeploy.                                             |
-| Stripe webhook is not granting credits | Webhook URL, event type, signing secret, and Netlify function logs.                           |
-| Supabase links redirect incorrectly    | Auth Site URL and redirect URL allow-list.                                                    |
-| Generation button is disabled          | `BABYSEA_API_KEY` exists and starts with `bye_`.                                              |
-| Preflight fails for storage MIME types | Apply migrations, then verify the `generated-media` bucket only allows PNG/JPEG/WebP/GIF/MP4. |
-| Build detects the parent workspace     | Confirm the Netlify Base directory and keep `--ignore-workspace` in the build command.        |
+| Symptom                                | Check                                                                                                |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| Checkout returns to the wrong URL      | `NEXT_PUBLIC_SITE_URL` in Netlify, then redeploy.                                                    |
+| Stripe webhook is not granting credits | Webhook URL, event type, signing secret, and Netlify function logs.                                  |
+| Supabase links redirect incorrectly    | Auth Site URL and redirect URL allow-list.                                                           |
+| Generation button is disabled          | `BABYSEA_API_KEY` exists and starts with `bye_`.                                                     |
+| Preflight fails for storage MIME types | Apply migrations, then verify the `generated-media` bucket only allows PNG/JPEG/WebP/GIF/MP4.        |
+| Build cannot resolve `catalog:` deps   | Confirm the Netlify Base directory points at the starter folder that contains `pnpm-workspace.yaml`. |

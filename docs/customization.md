@@ -26,7 +26,7 @@ BabySea handles underlying provider routing.
 For a new model-specific field:
 
 1. Render the field in `app/dashboard/generate/page.tsx`.
-2. Parse it in `app/dashboard/generate/actions.ts`.
+2. Parse it in `app/dashboard/generate/_lib/server-actions.ts`.
 3. Validate it against SDK model metadata.
 4. Pass it to the SDK request in `lib/babysea.ts`.
 5. Persist request metadata in `generations.output` for debugging.

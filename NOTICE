@@ -14,4 +14,4 @@ It builds on the following open-source projects:
 - Tailwind CSS (MIT License) - https://tailwindcss.com
 - Zod (MIT License) - https://github.com/colinhacks/zod
 - lucide-react (ISC License) - https://github.com/lucide-icons/lucide
-- BabySea TypeScript SDK (Apache 2.0 License) - https://github.com/babysea-ai/babysea-js
+- BabySea TypeScript SDK (Apache 2.0 License) - https://github.com/babysea-ai/babysea
