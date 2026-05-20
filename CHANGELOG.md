@@ -79,7 +79,7 @@ All notable changes to `generative-media-starter` will be documented here. The f
 - README status badge and status copy now describe the project as a working OSS starter rather than a reference-only starter.
 - README anchors now keep the OSS Starters badge focused on the starter itself, and the broad OSS taxonomy / primitive cross-promotion block was replaced with starter-specific related resources.
 - Deployment, Supabase, and agent-guide wording now describes OSS starters as working deployable apps and clarifies that publish validation runs before push rather than through mandatory GitHub status checks.
-- OG social image URL switched from `public` folder to `https://cdn.babysea.live/assets/logo/company/card/generative-media-starter.png` for reliable social-crawler resolution.
+- OG social image URL switched from `public` folder to `https://cdn.babysea.live/assets/oss/generative-media-starter-card.png` for reliable social-crawler resolution.
 - Landing page "Sign in" button now shows only a `LogIn` icon on mobile (`< sm`) and the full "Sign in" label on `sm+`, consistent with the dashboard sign-out button.
 - OG social image now served from the `public` folder (`/generative-media-starter.png`) instead of a raw GitHub URL.
 - Stats row ("Balance" and "Execution policy") is now a two-column grid on all screen sizes so both pills sit side by side on mobile.

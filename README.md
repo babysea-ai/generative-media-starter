@@ -1,8 +1,8 @@
 <div align="center">
 
 <p>
-  <a href="https://demo.generative-media-starter.babysea.live">
-    <img src="public/icon.png" width="100" alt="Generative Media Starter logo" />
+  <a>
+    <img src="public/icon.png" width="100" alt="Generative Media Starter icon" />
   </a>
 </p>
 
@@ -21,7 +21,20 @@
 <br />
 
 <a href="https://demo.generative-media-starter.babysea.live">
-  <img src="public/card.png" alt="Generative Media Starter preview" />
+  <img src="public/button-demo.png" height="40" alt="Generative Media Starter demo" />
+</a>
+
+<br />
+<br />
+
+<a>
+  <img src="public/card.png" alt="Generative Media Starter card" />
+</a>
+
+<br />
+
+<a>
+  <img src="public/dashboard.png" alt="Generative Media Starter dashboard" />
 </a>
 
 <br/>
