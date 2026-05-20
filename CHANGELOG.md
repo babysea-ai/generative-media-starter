@@ -4,6 +4,14 @@ All notable changes to `generative-media-starter` will be documented here. The f
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0), and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.5] - 2026-05-20
+
+- Updated icon and scripts deploy for auto topics and description.
+
+## [0.2.4] - 2026-05-20
+
+- Updated icon.
+
 ## [0.2.3] - 2026-05-19
 
 ### Changed
